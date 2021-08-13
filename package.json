@@ -1,0 +1,54 @@
+{
+  "name": "autui",
+  "version": "0.0.0",
+  "main": "./dist/autui.umd.js",
+  "module": "./dist/autui.es.js",
+  "exports": {
+    ".": {
+      "default": "./dist/autui.umd.js",
+      "import": "./dist/autui.es.js",
+      "require": "./dist/autui.umd.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "dev": "vite -c vite.doc.ts",
+    "build:doc": "vite build -c vite.doc.ts",
+    "build:lib": "vite build -c vite.lib.ts",
+    "build:types": "tsc -p lib --emitDeclarationOnly",
+    "serve": "vite preview -c vite.doc.ts",
+    "lint": "eslint . --ext ts,tsx,js,jsx",
+    "rollup:types": "api-extractor run"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.18.5",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.12",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@vitejs/plugin-react-refresh": "^1.3.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.0",
+    "styled-components": "^5.3.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "styled-components": "^5.3.0"
+  },
+  "workspaces": [
+    "src",
+    "lib"
+  ]
+}
