@@ -13,3 +13,11 @@ export const AbosulteLayout = styled.div<AbosulteLayoutProps>((p) => ({
   bottom: p.bottom ?? 0,
   left: p.left ?? 0,
 }));
+
+/**
+ * Default container with spacing
+ */
+export const Container = styled.div`
+  margin: ${(p) => p.theme.spacing.containerMargin};
+  padding: ${(p) => p.theme.spacing.containerPadding};
+`;

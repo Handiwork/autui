@@ -5,8 +5,24 @@ import { Normalize } from "./normalize";
 export interface AutuiTheme {
   colors: {
     primary: string;
+    onPrimary: string;
+    lightPrimary: string;
+    hoverLayer: string;
   };
   borderRadius: string;
+  spacing: {
+    containerPadding: string;
+    containerMargin: string;
+  };
+  fontSizes: {
+    root: string;
+    h1: string;
+    h2: string;
+    h3: string;
+    h4: string;
+    h5: string;
+    h6: string;
+  };
 }
 /**
  * @public
@@ -21,8 +37,24 @@ export function createTheme(): AutuiTheme {
   return {
     colors: {
       primary: "#50466b",
+      onPrimary: "white",
+      lightPrimary: "#706396",
+      hoverLayer: "#a28eda",
     },
     borderRadius: "4px",
+    spacing: {
+      containerMargin: "8px",
+      containerPadding: "8px",
+    },
+    fontSizes: {
+      root: "62.5%",
+      h1: "2.4rem",
+      h2: "2.2rem",
+      h3: "2.0rem",
+      h4: "1.8rem",
+      h5: "1.6rem",
+      h6: "1.4rem",
+    },
   };
 }
 

@@ -1,9 +1,13 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@loadable/component': ^5.15.0
   '@microsoft/api-extractor': ^7.18.5
+  '@types/loadable__component': ^5.13.4
   '@types/react': ^17.0.0
   '@types/react-dom': ^17.0.0
+  '@types/react-router-dom': ^5.1.8
+  '@types/react-syntax-highlighter': ^13.5.2
   '@types/styled-components': ^5.1.12
   '@typescript-eslint/eslint-plugin': ^4.29.1
   '@vitejs/plugin-react-refresh': ^1.3.1
@@ -19,14 +23,21 @@ specifiers:
   prettier: ^2.3.2
   react: ^17.0.2
   react-dom: ^17.0.0
+  react-icons: ^4.2.0
+  react-router-dom: ^5.2.0
+  react-syntax-highlighter: ^15.4.4
   styled-components: ^5.3.0
   typescript: ^4.3.2
   vite: ^2.4.4
 
 devDependencies:
+  '@loadable/component': registry.nlark.com/@loadable/component/5.15.0_react@17.0.2
   '@microsoft/api-extractor': registry.nlark.com/@microsoft/api-extractor/7.18.5
+  '@types/loadable__component': registry.nlark.com/@types/loadable__component/5.13.4
   '@types/react': registry.nlark.com/@types/react/17.0.17
   '@types/react-dom': registry.nlark.com/@types/react-dom/17.0.9
+  '@types/react-router-dom': registry.nlark.com/@types/react-router-dom/5.1.8
+  '@types/react-syntax-highlighter': registry.nlark.com/@types/react-syntax-highlighter/13.5.2
   '@types/styled-components': registry.nlark.com/@types/styled-components/5.1.12
   '@typescript-eslint/eslint-plugin': registry.nlark.com/@typescript-eslint/eslint-plugin/4.29.1_eslint@7.32.0+typescript@4.3.5
   '@vitejs/plugin-react-refresh': registry.nlark.com/@vitejs/plugin-react-refresh/1.3.6
@@ -42,6 +53,9 @@ devDependencies:
   prettier: registry.nlark.com/prettier/2.3.2
   react: registry.nlark.com/react/17.0.2
   react-dom: registry.nlark.com/react-dom/17.0.2_react@17.0.2
+  react-icons: registry.nlark.com/react-icons/4.2.0_react@17.0.2
+  react-router-dom: registry.nlark.com/react-router-dom/5.2.0_react@17.0.2
+  react-syntax-highlighter: registry.nlark.com/react-syntax-highlighter/15.4.4_react@17.0.2
   styled-components: registry.nlark.com/styled-components/5.3.0_react-dom@17.0.2+react@17.0.2
   typescript: registry.nlark.com/typescript/4.3.5
   vite: registry.nlark.com/vite/2.4.4
@@ -363,6 +377,18 @@ packages:
   /camelcase/6.2.0:
     resolution: {integrity: sha1-kkr4gcnVJaydh/QNlk5c6pgqGAk=, tarball: camelcase/download/camelcase-6.2.0.tgz}
     engines: {node: '>=10'}
+    dev: true
+
+  /character-entities-legacy/1.1.4:
+    resolution: {integrity: sha1-lLwYRdznClu50uzHSHJWYSk9j8E=, tarball: character-entities-legacy/download/character-entities-legacy-1.1.4.tgz}
+    dev: true
+
+  /character-entities/1.2.4:
+    resolution: {integrity: sha1-4Sw5Obfq9OWxXnrUxeKOHUjFsWs=, tarball: character-entities/download/character-entities-1.2.4.tgz}
+    dev: true
+
+  /character-reference-invalid/1.1.4:
+    resolution: {integrity: sha1-CDMpzaDq4nKrPbvzfpo4LBOvFWA=, tarball: character-reference-invalid/download/character-reference-invalid-1.1.4.tgz}
     dev: true
 
   /cliui/7.0.4:
@@ -687,6 +713,11 @@ packages:
       mime-types: registry.nlark.com/mime-types/2.1.32
     dev: true
 
+  /format/0.2.2:
+    resolution: {integrity: sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=, tarball: format/download/format-0.2.2.tgz}
+    engines: {node: '>=0.4.x'}
+    dev: true
+
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=, tarball: fs.realpath/download/fs.realpath-1.0.0.tgz}
     dev: true
@@ -835,6 +866,17 @@ packages:
     resolution: {integrity: sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=, tarball: inherits/download/inherits-2.0.4.tgz}
     dev: true
 
+  /is-alphabetical/1.0.4:
+    resolution: {integrity: sha1-nn1rlJFr4iFTdF0YTCmMv5hqaG0=, tarball: is-alphabetical/download/is-alphabetical-1.0.4.tgz}
+    dev: true
+
+  /is-alphanumerical/1.0.4:
+    resolution: {integrity: sha1-frmiQx+FX2se8aeOMm31FWlsTb8=, tarball: is-alphanumerical/download/is-alphanumerical-1.0.4.tgz}
+    dependencies:
+      is-alphabetical: 1.0.4
+      is-decimal: 1.0.4
+    dev: true
+
   /is-arrayish/0.2.1:
     resolution: {integrity: sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=, tarball: is-arrayish/download/is-arrayish-0.2.1.tgz}
     dev: true
@@ -844,6 +886,10 @@ packages:
     hasBin: true
     dependencies:
       ci-info: registry.nlark.com/ci-info/3.2.0
+    dev: true
+
+  /is-decimal/1.0.4:
+    resolution: {integrity: sha1-ZaOllYocW2OnBuGzM9fNn2MNP6U=, tarball: is-decimal/download/is-decimal-1.0.4.tgz}
     dev: true
 
   /is-extglob/2.1.1:
@@ -866,6 +912,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       is-extglob: 2.1.1
+    dev: true
+
+  /is-hexadecimal/1.0.4:
+    resolution: {integrity: sha1-zDXJdYjaS9Saju3WvECC1E3LI6c=, tarball: is-hexadecimal/download/is-hexadecimal-1.0.4.tgz}
     dev: true
 
   /is-negative-zero/2.0.1:
@@ -1279,6 +1329,17 @@ packages:
       callsites: registry.nlark.com/callsites/3.1.0
     dev: true
 
+  /parse-entities/2.0.0:
+    resolution: {integrity: sha1-U8brW5MUofTsmfoP33zgHs2gy+g=, tarball: parse-entities/download/parse-entities-2.0.0.tgz}
+    dependencies:
+      character-entities: 1.2.4
+      character-entities-legacy: 1.1.4
+      character-reference-invalid: 1.1.4
+      is-alphanumerical: 1.0.4
+      is-decimal: 1.0.4
+      is-hexadecimal: 1.0.4
+    dev: true
+
   /parse-json/4.0.0:
     resolution: {integrity: sha1-vjX1Qlvh9/bHRxhPmKeIy5lHfuA=, tarball: parse-json/download/parse-json-4.0.0.tgz}
     engines: {node: '>=4'}
@@ -1304,6 +1365,12 @@ packages:
   /path-key/3.1.1:
     resolution: {integrity: sha1-WB9q3mWMu6ZaDTOA3ndTKVBU83U=, tarball: path-key/download/path-key-3.1.1.tgz}
     engines: {node: '>=8'}
+    dev: true
+
+  /path-to-regexp/1.8.0:
+    resolution: {integrity: sha1-iHs7qdhDk+h6CgufTLdWGYtTVIo=, tarball: path-to-regexp/download/path-to-regexp-1.8.0.tgz}
+    dependencies:
+      isarray: registry.nlark.com/isarray/0.0.1
     dev: true
 
   /path-type/3.0.0:
@@ -1451,6 +1518,10 @@ packages:
   /resolve-from/5.0.0:
     resolution: {integrity: sha1-w1IlhD3493bfIcV1V7wIfp39/Gk=, tarball: resolve-from/download/resolve-from-5.0.0.tgz}
     engines: {node: '>=8'}
+    dev: true
+
+  /resolve-pathname/3.0.0:
+    resolution: {integrity: sha1-mdAiJNPPJjaJvsuzk7xWAxMCXc0=, tarball: resolve-pathname/download/resolve-pathname-3.0.0.tgz}
     dev: true
 
   /resolve/1.17.0:
@@ -1711,6 +1782,14 @@ packages:
     resolution: {integrity: sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=, tarball: timsort/download/timsort-0.3.0.tgz}
     dev: true
 
+  /tiny-invariant/1.1.0:
+    resolution: {integrity: sha1-Y0xfjv3CdxS384bDXmdgmR0jCHU=, tarball: tiny-invariant/download/tiny-invariant-1.1.0.tgz}
+    dev: true
+
+  /tiny-warning/1.0.3:
+    resolution: {integrity: sha1-lKMNtFPfTGQ9D9VmBg1gqHXYR1Q=, tarball: tiny-warning/download/tiny-warning-1.0.3.tgz}
+    dev: true
+
   /tmpl/1.0.4:
     resolution: {integrity: sha1-I2QN17QtAEM5ERQIIOXPRA5SHdE=, tarball: tmpl/download/tmpl-1.0.4.tgz}
     dev: true
@@ -1795,6 +1874,10 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /value-equal/1.0.1:
+    resolution: {integrity: sha1-Hgt5THNMXAyt4XnEN9NW2TGjTWw=, tarball: value-equal/download/value-equal-1.0.1.tgz}
     dev: true
 
   /w3c-hr-time/1.0.2:
@@ -1883,6 +1966,11 @@ packages:
 
   /xmlchars/2.2.0:
     resolution: {integrity: sha1-Bg/hvLf5x2/ioX24apvDq4lCEMs=, tarball: xmlchars/download/xmlchars-2.2.0.tgz}
+    dev: true
+
+  /xtend/4.0.2:
+    resolution: {integrity: sha1-u3J3n1+kZRhrH0OPZ0+jR/2121Q=, tarball: xtend/download/xtend-4.0.2.tgz}
+    engines: {node: '>=0.4'}
     dev: true
 
   /y18n/5.0.8:
@@ -2532,6 +2620,21 @@ packages:
       chalk: registry.nlark.com/chalk/4.1.2
     dev: true
 
+  registry.nlark.com/@loadable/component/5.15.0_react@17.0.2:
+    resolution: {integrity: sha1-SLlSQje+VT9IsVj4yRUlk/Pz/e0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@loadable/component/download/@loadable/component-5.15.0.tgz}
+    id: registry.nlark.com/@loadable/component/5.15.0
+    name: '@loadable/component'
+    version: 5.15.0
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: '>=16.3.0'
+    dependencies:
+      '@babel/runtime': registry.nlark.com/@babel/runtime/7.15.3
+      hoist-non-react-statics: 3.3.2
+      react: registry.nlark.com/react/17.0.2
+      react-is: registry.nlark.com/react-is/16.13.1
+    dev: true
+
   registry.nlark.com/@microsoft/api-extractor-model/7.13.5:
     resolution: {integrity: sha1-eDaoG6R7mmVAYu0DYeTu5pr65R4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@microsoft/api-extractor-model/download/@microsoft/api-extractor-model-7.13.5.tgz}
     name: '@microsoft/api-extractor-model'
@@ -2711,6 +2814,20 @@ packages:
       '@types/node': registry.nlark.com/@types/node/16.4.13
     dev: true
 
+  registry.nlark.com/@types/hast/2.3.2:
+    resolution: {integrity: sha1-I2IBrMqeJpXkL3E9fdTxUdwpguQ=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/hast/download/@types/hast-2.3.2.tgz}
+    name: '@types/hast'
+    version: 2.3.2
+    dependencies:
+      '@types/unist': registry.nlark.com/@types/unist/2.0.6
+    dev: true
+
+  registry.nlark.com/@types/history/4.7.9:
+    resolution: {integrity: sha1-HPttYO84IsWJ8Y5w+LEvmijOhyQ=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/history/download/@types/history-4.7.9.tgz}
+    name: '@types/history'
+    version: 4.7.9
+    dev: true
+
   registry.nlark.com/@types/hoist-non-react-statics/3.3.1:
     resolution: {integrity: sha1-ESSq/lEYy1kZd66xzqrtEHDrA58=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/hoist-non-react-statics/download/@types/hoist-non-react-statics-3.3.1.tgz}
     name: '@types/hoist-non-react-statics'
@@ -2748,6 +2865,14 @@ packages:
     version: 7.0.9
     dev: true
 
+  registry.nlark.com/@types/loadable__component/5.13.4:
+    resolution: {integrity: sha1-pGRrJAaxKD76wanZSFgkqQWzPUo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/loadable__component/download/@types/loadable__component-5.13.4.tgz}
+    name: '@types/loadable__component'
+    version: 5.13.4
+    dependencies:
+      '@types/react': registry.nlark.com/@types/react/17.0.17
+    dev: true
+
   registry.nlark.com/@types/node/10.17.13:
     resolution: {integrity: sha1-zOvNuZC9YTnNFuhMOdwvsQI8qQw=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/node/download/@types/node-10.17.13.tgz}
     name: '@types/node'
@@ -2776,6 +2901,33 @@ packages:
     resolution: {integrity: sha1-RBqYHanXvhFwQuGm/T2sSzD1Wt0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/react-dom/download/@types/react-dom-17.0.9.tgz}
     name: '@types/react-dom'
     version: 17.0.9
+    dependencies:
+      '@types/react': registry.nlark.com/@types/react/17.0.17
+    dev: true
+
+  registry.nlark.com/@types/react-router-dom/5.1.8:
+    resolution: {integrity: sha1-vz4cgUmz1i6qIG1YWZ3oLfAkEZI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/react-router-dom/download/@types/react-router-dom-5.1.8.tgz}
+    name: '@types/react-router-dom'
+    version: 5.1.8
+    dependencies:
+      '@types/history': registry.nlark.com/@types/history/4.7.9
+      '@types/react': registry.nlark.com/@types/react/17.0.17
+      '@types/react-router': registry.nlark.com/@types/react-router/5.1.16
+    dev: true
+
+  registry.nlark.com/@types/react-router/5.1.16:
+    resolution: {integrity: sha1-87oEX7lmNOOLIVMcSC+a6zdgipk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/react-router/download/@types/react-router-5.1.16.tgz}
+    name: '@types/react-router'
+    version: 5.1.16
+    dependencies:
+      '@types/history': registry.nlark.com/@types/history/4.7.9
+      '@types/react': registry.nlark.com/@types/react/17.0.17
+    dev: true
+
+  registry.nlark.com/@types/react-syntax-highlighter/13.5.2:
+    resolution: {integrity: sha1-NXzANYHcQ0xXw7MfcODuzb97OrA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/react-syntax-highlighter/download/@types/react-syntax-highlighter-13.5.2.tgz}
+    name: '@types/react-syntax-highlighter'
+    version: 13.5.2
     dependencies:
       '@types/react': registry.nlark.com/@types/react/17.0.17
     dev: true
@@ -2810,6 +2962,12 @@ packages:
       '@types/hoist-non-react-statics': registry.nlark.com/@types/hoist-non-react-statics/3.3.1
       '@types/react': registry.nlark.com/@types/react/17.0.17
       csstype: registry.nlark.com/csstype/3.0.8
+    dev: true
+
+  registry.nlark.com/@types/unist/2.0.6:
+    resolution: {integrity: sha1-JQp7FsO5H2cqJFUuxkZ47rHToI0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/@types/unist/download/@types/unist-2.0.6.tgz}
+    name: '@types/unist'
+    version: 2.0.6
     dev: true
 
   registry.nlark.com/@types/yargs-parser/20.2.1:
@@ -3219,6 +3377,12 @@ packages:
     resolution: {integrity: sha1-/0XS8O2yRAadO3cq3rBP7TjQoK8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/colorette/download/colorette-1.3.0.tgz?cache=0&sync_timestamp=1628605216202&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcolorette%2Fdownload%2Fcolorette-1.3.0.tgz}
     name: colorette
     version: 1.3.0
+    dev: true
+
+  registry.nlark.com/comma-separated-tokens/1.0.8:
+    resolution: {integrity: sha1-YyuAthF4Z6FY8QgK1Jiy++fj9eo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/comma-separated-tokens/download/comma-separated-tokens-1.0.8.tgz}
+    name: comma-separated-tokens
+    version: 1.0.8
     dev: true
 
   registry.nlark.com/commander/2.20.3:
@@ -3749,6 +3913,14 @@ packages:
       reusify: 1.0.4
     dev: true
 
+  registry.nlark.com/fault/1.0.4:
+    resolution: {integrity: sha1-6vz8Cm0hT8lGAeFw3ymVSk+ELxM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/fault/download/fault-1.0.4.tgz}
+    name: fault
+    version: 1.0.4
+    dependencies:
+      format: 0.2.2
+    dev: true
+
   registry.nlark.com/flatted/3.2.2:
     resolution: {integrity: sha1-ZL/tXLaP48p4s+shStl7Y77c5WE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/flatted/download/flatted-3.2.2.tgz}
     name: flatted
@@ -3845,6 +4017,43 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       has-symbols: 1.0.2
+    dev: true
+
+  registry.nlark.com/hast-util-parse-selector/2.2.5:
+    resolution: {integrity: sha1-1Xwj9NoWrjxjs7bKRhZoMxNJnDo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/hast-util-parse-selector/download/hast-util-parse-selector-2.2.5.tgz}
+    name: hast-util-parse-selector
+    version: 2.2.5
+    dev: true
+
+  registry.nlark.com/hastscript/6.0.0:
+    resolution: {integrity: sha1-6HaNfqxWw/3qyKkoMNWOgR5b9kA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/hastscript/download/hastscript-6.0.0.tgz}
+    name: hastscript
+    version: 6.0.0
+    dependencies:
+      '@types/hast': registry.nlark.com/@types/hast/2.3.2
+      comma-separated-tokens: registry.nlark.com/comma-separated-tokens/1.0.8
+      hast-util-parse-selector: registry.nlark.com/hast-util-parse-selector/2.2.5
+      property-information: registry.nlark.com/property-information/5.6.0
+      space-separated-tokens: registry.nlark.com/space-separated-tokens/1.1.5
+    dev: true
+
+  registry.nlark.com/highlight.js/10.7.3:
+    resolution: {integrity: sha1-aXJy45kTVuQMPKxWanTu9oF1ZTE=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/highlight.js/download/highlight.js-10.7.3.tgz}
+    name: highlight.js
+    version: 10.7.3
+    dev: true
+
+  registry.nlark.com/history/4.10.1:
+    resolution: {integrity: sha1-MzcaZeOoOyZ0NOKz87G0xYqtTPM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/history/download/history-4.10.1.tgz}
+    name: history
+    version: 4.10.1
+    dependencies:
+      '@babel/runtime': registry.nlark.com/@babel/runtime/7.15.3
+      loose-envify: 1.4.0
+      resolve-pathname: 3.0.0
+      tiny-invariant: 1.1.0
+      tiny-warning: 1.0.3
+      value-equal: 1.0.1
     dev: true
 
   registry.nlark.com/html-escaper/2.0.2:
@@ -3962,6 +4171,12 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       has-symbols: 1.0.2
+    dev: true
+
+  registry.nlark.com/isarray/0.0.1:
+    resolution: {integrity: sha1-ihis/Kmo9Bd+Cav8YDiTmwXR7t8=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/isarray/download/isarray-0.0.1.tgz}
+    name: isarray
+    version: 0.0.1
     dev: true
 
   registry.nlark.com/jest-changed-files/27.0.6:
@@ -4571,6 +4786,15 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  registry.nlark.com/lowlight/1.20.0:
+    resolution: {integrity: sha1-3bGX0zRirQ2TvxnRe2wwGqOUGIg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/lowlight/download/lowlight-1.20.0.tgz}
+    name: lowlight
+    version: 1.20.0
+    dependencies:
+      fault: registry.nlark.com/fault/1.0.4
+      highlight.js: registry.nlark.com/highlight.js/10.7.3
+    dev: true
+
   registry.nlark.com/mime-db/1.49.0:
     resolution: {integrity: sha1-89/eYMmenPO8lwHWh3ePU3ABy+0=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/mime-db/download/mime-db-1.49.0.tgz}
     name: mime-db
@@ -4585,6 +4809,21 @@ packages:
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: registry.nlark.com/mime-db/1.49.0
+    dev: true
+
+  registry.nlark.com/mini-create-react-context/0.4.1_prop-types@15.7.2+react@17.0.2:
+    resolution: {integrity: sha1-ByFxVhv9ySLaCKYMIZekl8wtHV4=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/mini-create-react-context/download/mini-create-react-context-0.4.1.tgz}
+    id: registry.nlark.com/mini-create-react-context/0.4.1
+    name: mini-create-react-context
+    version: 0.4.1
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    dependencies:
+      '@babel/runtime': registry.nlark.com/@babel/runtime/7.15.3
+      prop-types: 15.7.2
+      react: registry.nlark.com/react/17.0.2
+      tiny-warning: 1.0.3
     dev: true
 
   registry.nlark.com/nanoid/3.1.23:
@@ -4680,11 +4919,25 @@ packages:
       react-is: registry.nlark.com/react-is/17.0.2
     dev: true
 
+  registry.nlark.com/prismjs/1.24.1:
+    resolution: {integrity: sha1-xNeJXE1lACiUgvqJNtnN0ZJoQDY=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/prismjs/download/prismjs-1.24.1.tgz}
+    name: prismjs
+    version: 1.24.1
+    dev: true
+
   registry.nlark.com/progress/2.0.3:
     resolution: {integrity: sha1-foz42PW48jnBvGi+tOt4Vn1XLvg=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/progress/download/progress-2.0.3.tgz}
     name: progress
     version: 2.0.3
     engines: {node: '>=0.4.0'}
+    dev: true
+
+  registry.nlark.com/property-information/5.6.0:
+    resolution: {integrity: sha1-YWdVRfsjAC8kXGVA7EYHfU2j7Wk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/property-information/download/property-information-5.6.0.tgz}
+    name: property-information
+    version: 5.6.0
+    dependencies:
+      xtend: 4.0.2
     dev: true
 
   registry.nlark.com/react-dom/17.0.2_react@17.0.2:
@@ -4699,6 +4952,17 @@ packages:
       object-assign: 4.1.1
       react: registry.nlark.com/react/17.0.2
       scheduler: registry.nlark.com/scheduler/0.20.2
+    dev: true
+
+  registry.nlark.com/react-icons/4.2.0_react@17.0.2:
+    resolution: {integrity: sha1-bdqAyKjzOP+WoYUUJNYwgygmMNA=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/react-icons/download/react-icons-4.2.0.tgz}
+    id: registry.nlark.com/react-icons/4.2.0
+    name: react-icons
+    version: 4.2.0
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: registry.nlark.com/react/17.0.2
     dev: true
 
   registry.nlark.com/react-is/16.13.1:
@@ -4720,6 +4984,61 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  registry.nlark.com/react-router-dom/5.2.0_react@17.0.2:
+    resolution: {integrity: sha1-nmWk0MReEyieZsexfH4XXQ6hVmI=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/react-router-dom/download/react-router-dom-5.2.0.tgz}
+    id: registry.nlark.com/react-router-dom/5.2.0
+    name: react-router-dom
+    version: 5.2.0
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      '@babel/runtime': registry.nlark.com/@babel/runtime/7.15.3
+      history: registry.nlark.com/history/4.10.1
+      loose-envify: 1.4.0
+      prop-types: 15.7.2
+      react: registry.nlark.com/react/17.0.2
+      react-router: registry.nlark.com/react-router/5.2.0_react@17.0.2
+      tiny-invariant: 1.1.0
+      tiny-warning: 1.0.3
+    dev: true
+
+  registry.nlark.com/react-router/5.2.0_react@17.0.2:
+    resolution: {integrity: sha1-Qk51ZByodH+/duXsyml4GqN+opM=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/react-router/download/react-router-5.2.0.tgz}
+    id: registry.nlark.com/react-router/5.2.0
+    name: react-router
+    version: 5.2.0
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      '@babel/runtime': registry.nlark.com/@babel/runtime/7.15.3
+      history: registry.nlark.com/history/4.10.1
+      hoist-non-react-statics: 3.3.2
+      loose-envify: 1.4.0
+      mini-create-react-context: registry.nlark.com/mini-create-react-context/0.4.1_prop-types@15.7.2+react@17.0.2
+      path-to-regexp: 1.8.0
+      prop-types: 15.7.2
+      react: registry.nlark.com/react/17.0.2
+      react-is: registry.nlark.com/react-is/16.13.1
+      tiny-invariant: 1.1.0
+      tiny-warning: 1.0.3
+    dev: true
+
+  registry.nlark.com/react-syntax-highlighter/15.4.4_react@17.0.2:
+    resolution: {integrity: sha1-3JBD8Z570GP/PqeJhtIqbqqUOyo=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/react-syntax-highlighter/download/react-syntax-highlighter-15.4.4.tgz}
+    id: registry.nlark.com/react-syntax-highlighter/15.4.4
+    name: react-syntax-highlighter
+    version: 15.4.4
+    peerDependencies:
+      react: '>= 0.14.0'
+    dependencies:
+      '@babel/runtime': registry.nlark.com/@babel/runtime/7.15.3
+      highlight.js: registry.nlark.com/highlight.js/10.7.3
+      lowlight: registry.nlark.com/lowlight/1.20.0
+      prismjs: registry.nlark.com/prismjs/1.24.1
+      react: registry.nlark.com/react/17.0.2
+      refractor: registry.nlark.com/refractor/3.4.0
+    dev: true
+
   registry.nlark.com/react/17.0.2:
     resolution: {integrity: sha1-0LXMUW0p6z7uOD91tihkz7aAADc=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/react/download/react-17.0.2.tgz?cache=0&sync_timestamp=1628550717346&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact%2Fdownload%2Freact-17.0.2.tgz}
     name: react
@@ -4728,6 +5047,16 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: true
+
+  registry.nlark.com/refractor/3.4.0:
+    resolution: {integrity: sha1-Yr0nSwbJQgQfOQw3G2dutnywpng=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/refractor/download/refractor-3.4.0.tgz}
+    name: refractor
+    version: 3.4.0
+    dependencies:
+      hastscript: registry.nlark.com/hastscript/6.0.0
+      parse-entities: 2.0.0
+      prismjs: registry.nlark.com/prismjs/1.24.1
     dev: true
 
   registry.nlark.com/regenerator-runtime/0.13.9:
@@ -4767,6 +5096,12 @@ packages:
     name: source-map-js
     version: 0.6.2
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  registry.nlark.com/space-separated-tokens/1.1.5:
+    resolution: {integrity: sha1-hfMsPRDZaCAH6RdBTdxcJtGqaJk=, registry: https://registry.npm.taobao.org/, tarball: https://registry.nlark.com/space-separated-tokens/download/space-separated-tokens-1.1.5.tgz}
+    name: space-separated-tokens
+    version: 1.1.5
     dev: true
 
   registry.nlark.com/spdx-license-ids/3.0.10:
