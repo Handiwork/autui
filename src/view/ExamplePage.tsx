@@ -6,11 +6,14 @@ interface ExamplePageProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export default function ExamplePage(props: ExamplePageProps) {
-  const { title, children, ...others } = props;
+  const { title, children, style, ...others } = props;
   return (
-    <div {...others}>
+    <div
+      style={{ ...style, overflowY: "auto", width: "100%", height: "100%" }}
+      {...others}
+    >
       <H3>{title}</H3>
-      {children}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>{children}</div>
     </div>
   );
 }

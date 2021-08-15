@@ -6,8 +6,8 @@ export const Section = styled.section`
 `;
 
 const headerBase = css`
-  margin-block-start: 1em;
-  margin-block-end: 1em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
 `;

@@ -1,8 +1,13 @@
-import React, { ReactNode, FunctionComponent, useState } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { FaCode } from "react-icons/fa";
-import { Card } from "../../lib";
+import React, {
+  ReactNode,
+  FunctionComponent,
+  useState,
+  useCallback,
+} from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { coy as defaultStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { FaCode, FaChevronUp } from "react-icons/fa";
+import { Card, ContentButton, VerticalDivider } from "../../lib";
 
 interface ExampleSectionProps {
   description: ReactNode;
@@ -11,25 +16,40 @@ interface ExampleSectionProps {
 }
 
 export default function ExampleSection(props: ExampleSectionProps) {
-  const { description: discription, code, component: Cmp } = props;
+  const { description, code, component: Cmp } = props;
   const [currentTab, setCurrentTab] = useState<"code" | null>(null);
+  const toggleCode = useCallback(() => {
+    setCurrentTab((e) => (e === "code" ? null : "code"));
+  }, []);
+  const iconStyle = {
+    fontSize: "1.0rem",
+    verticalAlign: "middle",
+    display: "inline-block",
+    margin: "0 2px",
+  };
   return (
-    <Card>
-      <Cmp />
-      <div
-        style={{ borderTop: "1px rgba(.2,.2,.2,.1) solid", margin: "8px 0" }}
-      />
-      {discription}
-      <FaCode
-        size="2rem"
-        cursor="pointer"
-        onClick={() => setCurrentTab((e) => (e === "code" ? null : "code"))}
-      />
-      {currentTab === "code" && (
-        <SyntaxHighlighter language="typescript" style={docco}>
-          {code}
-        </SyntaxHighlighter>
-      )}
-    </Card>
+    <div style={{ flex: "0 1 50%", maxWidth: "50%" }}>
+      <Card>
+        <Cmp />
+        <VerticalDivider />
+        {description}
+        <ContentButton onClick={toggleCode}>
+          <FaCode size="1.0rem" style={iconStyle} />
+          <span style={iconStyle}>Code</span>
+        </ContentButton>
+        {currentTab === "code" && (
+          <>
+            <VerticalDivider />
+            <SyntaxHighlighter language="tsx" style={defaultStyle}>
+              {code}
+            </SyntaxHighlighter>
+            <ContentButton onClick={toggleCode}>
+              <FaChevronUp size="1.0rem" style={iconStyle} />
+              <span style={iconStyle}>Collapse</span>
+            </ContentButton>
+          </>
+        )}
+      </Card>
+    </div>
   );
 }

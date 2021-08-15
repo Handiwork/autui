@@ -22,6 +22,7 @@ module.exports = {
     "no-param-reassign": ["error", { props: false }],
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/label-has-associated-control": "off",
     "class-methods-use-this": "off",
     "prefer-destructuring": "off",
     "no-console": "off",

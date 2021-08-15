@@ -1,7 +1,13 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { hoverHighlight } from "./effects";
 
+const buttonBaseStyle = css`
+  font-size: 1rem;
+  user-select: none;
+`;
+
 export const Button = styled.button`
+  ${buttonBaseStyle}
   outline: none;
   border: ${(p) => p.theme.colors.primary} 1px solid;
   color: white;
@@ -14,4 +20,19 @@ export const Button = styled.button`
   position: relative;
 
   ${hoverHighlight}
+`;
+
+export const ContentButton = styled.button`
+  ${buttonBaseStyle}
+  outline: none;
+  border: none;
+  color: ${(p) => p.theme.colors.primary};
+  background-color: transparent;
+  font-weight: bold;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    color: ${(p) => p.theme.colors.lightPrimary};
+  }
 `;

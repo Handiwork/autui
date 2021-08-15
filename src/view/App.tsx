@@ -1,25 +1,30 @@
 import React from "react";
-import loadable from "@loadable/component";
-import { Route, useHistory } from "react-router-dom";
+import { Route, useHistory, useRouteMatch } from "react-router-dom";
 import {
-  AbosulteLayout,
+  AbsoluteLayout,
   AutuiThemeProvider,
   Container,
+  ContentButton,
   createTheme,
   H1,
   List,
   ListItem,
   sb,
 } from "../../lib";
+import Logo from "../components/Logo";
+import routes, { IRoute } from "./examples/routes";
 
 const theme = createTheme();
-const routes = [
-  {
-    path: "/buttons",
-    title: "Button Examples",
-    component: loadable(() => import("./examples/buttons")),
-  },
-];
+
+const NavItem = ({ it }: { it: IRoute }) => {
+  const history = useHistory();
+  const match = useRouteMatch(it.path);
+  return (
+    <ListItem onClick={() => history.push(it.path)} active={!!match}>
+      {it.title}
+    </ListItem>
+  );
+};
 
 function App() {
   const leftWidth = 250;
@@ -28,29 +33,36 @@ function App() {
       left: leftWidth,
     })
     .build();
-  const history = useHistory();
   return (
     <AutuiThemeProvider theme={theme}>
-      <AbosulteLayout>
-        <AbosulteLayout right={`calc(100% - ${leftWidth}px)`}>
+      <AbsoluteLayout>
+        <AbsoluteLayout right={`calc(100% - ${leftWidth}px)`}>
           <Container>
-            <H1>Autui</H1>
+            <H1>
+              <ContentButton style={{ fontSize: "1em" }}>
+                <Logo
+                  style={{
+                    height: "1em",
+                    width: "1em",
+                  }}
+                />
+              </ContentButton>
+              <span>Autui</span>
+            </H1>
           </Container>
 
           <List>
             {routes.map((it) => (
-              <ListItem key={it.path} onClick={() => history.push(it.path)}>
-                {it.title}
-              </ListItem>
+              <NavItem it={it} key={it.path} />
             ))}
           </List>
-        </AbosulteLayout>
+        </AbsoluteLayout>
         <div style={rightStyle}>
           {routes.map((it) => (
             <Route key={it.path} path={it.path} component={it.component} />
           ))}
         </div>
-      </AbosulteLayout>
+      </AbsoluteLayout>
     </AutuiThemeProvider>
   );
 }

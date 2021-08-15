@@ -5,14 +5,22 @@ export const Normalize = createGlobalStyle`
 html{
   font-size: ${(p) => p.theme.fontSizes.root};
 }
+body{
+  font-size: 1rem;
+}
 
 html,body{
   margin: 0;
   padding: 0;
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
 ::-webkit-scrollbar-thumb{
   -webkit-appearance:none;
+  width: 4px;
   border-radius: 4px;
   background-color: ${(p) => p.theme.colors.lightPrimary};
 }
