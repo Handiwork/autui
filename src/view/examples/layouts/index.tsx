@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
-import ExamplePage from "../../ExamplePage";
-import ExampleSection from "../../ExampleSection";
+import ExamplePage from "../ExamplePage";
+import ExampleSection from "../ExampleSection";
 
 import AbsoluteLayouts from "./AbsoluteLayouts";
 import AbsoluteLayoutsCode from "./AbsoluteLayouts?raw";

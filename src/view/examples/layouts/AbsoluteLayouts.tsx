@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteLayout } from "../../../../lib";
+import { AbsoluteLayout } from "autui";
 
 export default function AbsoluteLayouts() {
   return (

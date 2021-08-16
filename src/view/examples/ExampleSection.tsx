@@ -4,10 +4,9 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coy as defaultStyle } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FaCode, FaChevronUp } from "react-icons/fa";
-import { Card, ContentButton, VerticalDivider } from "../../lib";
+import { Card, ContentButton, VerticalDivider } from "../../../lib";
+import CodeViewer from "../../components/CodeViewer";
 
 interface ExampleSectionProps {
   description: ReactNode;
@@ -40,9 +39,7 @@ export default function ExampleSection(props: ExampleSectionProps) {
         {currentTab === "code" && (
           <>
             <VerticalDivider />
-            <SyntaxHighlighter language="tsx" style={defaultStyle}>
-              {code}
-            </SyntaxHighlighter>
+            <CodeViewer language="tsx">{code}</CodeViewer>
             <ContentButton onClick={toggleCode}>
               <FaChevronUp size="1.0rem" style={iconStyle} />
               <span style={iconStyle}>Collapse</span>

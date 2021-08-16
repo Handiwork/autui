@@ -1,69 +1,26 @@
 import React from "react";
-import { Route, useHistory, useRouteMatch } from "react-router-dom";
-import {
-  AbsoluteLayout,
-  AutuiThemeProvider,
-  Container,
-  ContentButton,
-  createTheme,
-  H1,
-  List,
-  ListItem,
-  sb,
-} from "../../lib";
-import Logo from "../components/Logo";
-import routes, { IRoute } from "./examples/routes";
+import { Route, Switch } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { AutuiThemeProvider, createTheme } from "../../lib";
+import Home from "./Home";
+import routes from "./routes";
+import TopNavigation from "./TopNavigation";
 
 const theme = createTheme();
 
-const NavItem = ({ it }: { it: IRoute }) => {
-  const history = useHistory();
-  const match = useRouteMatch(it.path);
-  return (
-    <ListItem onClick={() => history.push(it.path)} active={!!match}>
-      {it.title}
-    </ListItem>
-  );
-};
-
 function App() {
-  const leftWidth = 250;
-  const rightStyle = sb()
-    .absoluteLayout({
-      left: leftWidth,
-    })
-    .build();
   return (
-    <AutuiThemeProvider theme={theme}>
-      <AbsoluteLayout>
-        <AbsoluteLayout right={`calc(100% - ${leftWidth}px)`}>
-          <Container>
-            <H1>
-              <ContentButton style={{ fontSize: "1em" }}>
-                <Logo
-                  style={{
-                    height: "1em",
-                    width: "1em",
-                  }}
-                />
-              </ContentButton>
-              <span>Autui</span>
-            </H1>
-          </Container>
-
-          <List>
-            {routes.map((it) => (
-              <NavItem it={it} key={it.path} />
-            ))}
-          </List>
-        </AbsoluteLayout>
-        <div style={rightStyle}>
+    <HelmetProvider>
+      <AutuiThemeProvider theme={theme}>
+        <Switch>
           {routes.map((it) => (
             <Route key={it.path} path={it.path} component={it.component} />
           ))}
-        </div>
-      </AbsoluteLayout>
-    </AutuiThemeProvider>
+          <Route path="/" component={Home} />
+        </Switch>
+        <TopNavigation />
+      </AutuiThemeProvider>
+    </HelmetProvider>
   );
 }
 

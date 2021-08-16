@@ -1,6 +1,6 @@
 import React from "react";
-import ExamplePage from "../../ExamplePage";
-import ExampleSection from "../../ExampleSection";
+import ExamplePage from "../ExamplePage";
+import ExampleSection from "../ExampleSection";
 
 import BasicCompositions from "./BasicCompositions";
 import BasicCompositionsCode from "./BasicCompositions?raw";

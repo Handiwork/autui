@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Button } from "../../../../lib";
+import { Button } from "autui";
 
 export default function NormalButtons(): ReactElement {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { OutlinedInput } from "../../../../lib";
+import { OutlinedInput } from "autui";
 
 const Form = styled.div`
   & > label {
@@ -39,6 +39,10 @@ export default function OutlinedInputs() {
       <label>
         <span>search</span>
         <OutlinedInput type="search" />
+      </label>
+      <label>
+        <span>color</span>
+        <OutlinedInput type="color" />
       </label>
     </Form>
   );

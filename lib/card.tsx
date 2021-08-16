@@ -1,11 +1,11 @@
 import React, { HTMLAttributes, ReactNode, useState } from "react";
 import styled from "styled-components";
+import { floatEffect } from "./effects";
+import { Container } from "./layout";
 
-export const Card = styled.div`
+export const Card = styled(Container)`
   border-radius: ${(p) => p.theme.borderRadius};
-  box-shadow: 2px 2px 4px 1px rgba(0.2, 0.2, 0.2, 0.2);
-  margin: ${(p) => p.theme.spacing.containerMargin};
-  padding: ${(p) => p.theme.spacing.containerPadding};
+  ${floatEffect}
 `;
 
 interface ExpandableCardProps extends HTMLAttributes<HTMLDivElement> {

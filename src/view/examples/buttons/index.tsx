@@ -1,6 +1,6 @@
 import React from "react";
-import ExamplePage from "../../ExamplePage";
-import ExampleSection from "../../ExampleSection";
+import ExamplePage from "../ExamplePage";
+import ExampleSection from "../ExampleSection";
 
 import NormalButtons from "./NormalButtons";
 import NormalButtonsCode from "./NormalButtons?raw";

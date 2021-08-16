@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { FaCodeBranch, FaShare } from "react-icons/fa";
-import { ContentButton } from "../../../../lib";
+import { ContentButton } from "autui";
 
 export default function ContentButtons(): ReactElement {
   return (

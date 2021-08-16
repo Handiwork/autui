@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { floatEffect } from "./effects";
 import { Container } from "./layout";
 
 export const List = styled.div`
@@ -13,12 +14,14 @@ interface ListItemProps {
 const listItemActive = css`
   background-color: ${(p) => p.theme.colors.primary};
   color: ${(p) => p.theme.colors.onPrimary};
+  ${floatEffect}
 `;
 
 const listItemHover = css`
   &:hover {
     background-color: ${(p) => p.theme.colors.hoverLayer};
     color: inherit;
+    ${floatEffect}
   }
 `;
 

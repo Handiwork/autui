@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { floatEffect } from "./effects";
 
 export const Normalize = createGlobalStyle`
 
@@ -23,6 +24,7 @@ html,body{
   width: 4px;
   border-radius: 4px;
   background-color: ${(p) => p.theme.colors.lightPrimary};
+  ${floatEffect}
 }
 
 ::-webkit-scrollbar-track{

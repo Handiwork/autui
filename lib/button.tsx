@@ -33,6 +33,6 @@ export const ContentButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: ${(p) => p.theme.colors.lightPrimary};
+    color: ${(p) => p.theme.colors.darkenPrimary};
   }
 `;

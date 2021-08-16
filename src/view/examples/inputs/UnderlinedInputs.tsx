@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { UnderlinedInput } from "../../../../lib";
+import { UnderlinedInput } from "autui";
 
 const Form = styled.div`
   & > label {
@@ -39,6 +39,10 @@ export default function UnderlinedInputs() {
       <label>
         <span>search</span>
         <UnderlinedInput type="search" />
+      </label>
+      <label>
+        <span>color</span>
+        <UnderlinedInput type="color" />
       </label>
     </Form>
   );

@@ -1,4 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const inputBaseStyle = css`
+  outline: none;
+  margin: ${(p) => p.theme.spacing.containerMargin};
+  padding: ${(p) => p.theme.spacing.containerPadding};
+  background-color: transparent;
+`;
 
 export const OutlinedInput = styled.input`
   border: ${(p) => p.theme.colors.lightPrimary} 1px solid;
@@ -6,9 +13,7 @@ export const OutlinedInput = styled.input`
     border: ${(p) => p.theme.colors.primary} 1px solid;
   }
   border-radius: ${(p) => p.theme.borderRadius};
-  outline: none;
-  margin: ${(p) => p.theme.spacing.containerMargin};
-  padding: ${(p) => p.theme.spacing.containerPadding};
+  ${inputBaseStyle}
 `;
 
 export const UnderlinedInput = styled.input`
@@ -18,7 +23,5 @@ export const UnderlinedInput = styled.input`
     border-bottom: ${(p) => p.theme.colors.primary} 1px solid;
   }
   border-radius: 0;
-  outline: none;
-  margin: ${(p) => p.theme.spacing.containerMargin};
-  padding: ${(p) => p.theme.spacing.containerPadding};
+  ${inputBaseStyle}
 `;

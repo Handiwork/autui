@@ -7,3 +7,4 @@ export * from "./html";
 export * from "./list";
 export * from "./card";
 export * from "./input";
+export * from "./menu";

@@ -8,6 +8,7 @@ export interface AutuiTheme {
     primary: string;
     onPrimary: string;
     lightPrimary: string;
+    darkenPrimary: string;
     hoverLayer: string;
   };
   borderRadius: string;
@@ -38,11 +39,13 @@ export function createColors(primaryColor: string) {
   const primary = Color(primaryColor);
   const onPrimary = primary.isDark() ? Color("white") : Color("black");
   const lightPrimary = primary.lighten(0.4);
+  const darkenPrimary = primary.darken(0.2);
   const hoverLayer = primary.lighten(0.6).alpha(0.15);
   return {
     primary: primaryColor,
     onPrimary: onPrimary.toString(),
     lightPrimary: lightPrimary.toString(),
+    darkenPrimary: darkenPrimary.toString(),
     hoverLayer: hoverLayer.toString(),
   };
 }

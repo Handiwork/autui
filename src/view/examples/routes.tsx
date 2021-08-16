@@ -1,11 +1,6 @@
-import { ComponentType } from "react";
 import loadable from "@loadable/component";
+import { IRoute } from "../../data/IRoute";
 
-export interface IRoute {
-  path: string;
-  title: string;
-  component: ComponentType<any>;
-}
 const routes: Array<IRoute> = [
   {
     path: "buttons",
