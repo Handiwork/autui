@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { Container, ListItem } from "../../lib";
+import { useJump } from "@doc/hooks";
+import { floatEffect, Container, ListItem } from "autui";
 import Logo from "../components/Logo";
 import routes from "./routes";
-import { floatEffect } from "../../lib/effects";
 
 export default function TopNavigation(): ReactElement {
   const home = useRouteMatch({ path: "/", exact: true });
@@ -12,7 +12,7 @@ export default function TopNavigation(): ReactElement {
     <BarContainer>
       <ContentContainer data-home={!!home}>
         <LogoHome />
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", margin: "0 8px" }}>
           {routes.map((it) => (
             <NavItem key={it.path} path={it.path} title={it.title} />
           ))}
@@ -56,12 +56,12 @@ const LogoHomeContainer = styled(Container)`
 
 interface NavItemProps {
   path: string;
-  title: string;
+  title: ReactNode;
 }
 
 function NavItem({ path, title }: NavItemProps): ReactElement {
-  const history = useHistory();
-  return <ListItem onClick={() => history.push(path)}>{title}</ListItem>;
+  const jump = useJump(path);
+  return <ListItem onClick={jump}>{title}</ListItem>;
 }
 
 const ContentContainer = styled.div`
@@ -75,7 +75,7 @@ const ContentContainer = styled.div`
   height: 48px;
   &[data-home="true"] {
     max-width: 1000px;
-    color: white;
+    color: ${(p) => p.theme.colors.onPrimary};
 
     @media screen and (min-width: 1600px) {
       max-width: 1200px;

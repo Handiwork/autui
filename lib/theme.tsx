@@ -1,5 +1,12 @@
-import { ThemeProvider } from "styled-components";
-import React, { ReactNode } from "react";
+import { ThemeProvider, ThemeContext } from "styled-components";
+import React, {
+  ReactNode,
+  useContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+  createContext,
+} from "react";
 import Color from "color";
 import { Normalize } from "./normalize";
 
@@ -38,7 +45,7 @@ declare module "styled-components" {
 export function createColors(primaryColor: string) {
   const primary = Color(primaryColor);
   const onPrimary = primary.isDark() ? Color("white") : Color("black");
-  const lightPrimary = primary.lighten(0.4);
+  const lightPrimary = primary.lighten(0.5);
   const darkenPrimary = primary.darken(0.2);
   const hoverLayer = primary.lighten(0.6).alpha(0.15);
   return {
@@ -72,16 +79,31 @@ export function createTheme(): AutuiTheme {
 }
 
 interface AutuiThemeProviderProps {
-  theme: AutuiTheme;
+  initTheme: AutuiTheme;
   children: ReactNode;
   normalize?: boolean;
 }
 
+const AutuiThemeContext = createContext<Dispatch<SetStateAction<AutuiTheme>>>(
+  () => {}
+);
+
 export function AutuiThemeProvider(props: AutuiThemeProviderProps) {
+  const [theme, setTheme] = useState(props.initTheme);
   return (
-    <ThemeProvider theme={props.theme}>
-      {(props.normalize ?? true) && <Normalize />}
-      {props.children}
-    </ThemeProvider>
+    <AutuiThemeContext.Provider value={setTheme}>
+      <ThemeProvider theme={theme}>
+        {(props.normalize ?? true) && <Normalize />}
+        {props.children}
+      </ThemeProvider>
+    </AutuiThemeContext.Provider>
   );
+}
+
+export function useTheme() {
+  return useContext(ThemeContext);
+}
+
+export function useThemeUpdater() {
+  return useContext(AutuiThemeContext);
 }

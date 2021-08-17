@@ -1,9 +1,32 @@
-import React from "react";
-import MasterDetialPage from "../../components/MasterDetialPage";
-import routes from "./routes";
+import loadable from "@loadable/component";
+import masterDetailPage from "../../components/masterDetialPage";
+import { IRoute } from "../../data/IRoute";
 
-function Examples() {
-  return <MasterDetialPage routes={routes} />;
-}
+const routes: Array<IRoute> = [
+  {
+    path: "buttons",
+    title: "Buttons",
+    component: loadable(() => import("./buttons")),
+  },
+  {
+    path: "layouts",
+    title: "Layouts",
+    component: loadable(() => import("./layouts")),
+  },
+  {
+    path: "compositions",
+    title: "Compositions",
+    component: loadable(() => import("./compositions")),
+  },
+  {
+    path: "inputs",
+    title: "Inputs",
+    component: loadable(() => import("./inputs")),
+  },
+];
 
-export default Examples;
+routes.forEach((it) => {
+  it.path = `/components/${it.path}`;
+});
+
+export default masterDetailPage(routes);

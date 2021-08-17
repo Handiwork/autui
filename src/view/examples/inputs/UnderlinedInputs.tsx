@@ -4,7 +4,8 @@ import { UnderlinedInput } from "autui";
 
 const Form = styled.div`
   & > label {
-    display: block;
+    display: flex;
+    align-items: center;
     & span {
       display: inline-block;
       min-width: 80px;
@@ -43,6 +44,10 @@ export default function UnderlinedInputs() {
       <label>
         <span>color</span>
         <UnderlinedInput type="color" />
+      </label>
+      <label>
+        <span>range</span>
+        <UnderlinedInput type="range" />
       </label>
     </Form>
   );

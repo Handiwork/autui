@@ -1,7 +1,22 @@
-import React from "react";
-import MasterDetialPage from "../../components/MasterDetialPage";
-import routes from "./routes";
+import markdownPage from "@doc/components/markdownPage";
+import masterDetailPage from "@doc/components/masterDetialPage";
+import { IRoute } from "../../data/IRoute";
 
-export default function Docs() {
-  return <MasterDetialPage routes={routes} />;
-}
+const routes: Array<IRoute> = [
+  {
+    path: "introduction",
+    title: "Autui",
+    component: markdownPage(() => import("./Introduction.md?raw")),
+  },
+  {
+    path: "quick-start",
+    title: "Quick Start",
+    component: markdownPage(() => import("./QuickStart.md?raw")),
+  },
+];
+
+routes.forEach((it) => {
+  it.path = `/docs/${it.path}`;
+});
+
+export default masterDetailPage(routes);

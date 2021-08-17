@@ -5,6 +5,7 @@ export const Normalize = createGlobalStyle`
 
 html{
   font-size: ${(p) => p.theme.fontSizes.root};
+  font-family: Arial, Helvetica;
 }
 body{
   font-size: 1rem;

@@ -11,7 +11,7 @@ export default function HelmetTitle({ title, noSuffix }: Props): ReactElement {
     <Helmet>
       <title>
         {title}
-        {!noSuffix && `- Autui`}
+        {!noSuffix && ` - Autui`}
       </title>
     </Helmet>
   );

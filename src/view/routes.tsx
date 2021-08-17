@@ -1,4 +1,6 @@
+import React from "react";
 import loadable from "@loadable/component";
+import { FaCog } from "react-icons/fa";
 import { IRoute } from "../data/IRoute";
 
 const routes: Array<IRoute> = [
@@ -11,6 +13,11 @@ const routes: Array<IRoute> = [
     path: "/components",
     title: "Components",
     component: loadable(() => import("./examples")),
+  },
+  {
+    path: "/configuration",
+    title: <FaCog />,
+    component: loadable(() => import("./Configuartion")),
   },
 ];
 export default routes;
