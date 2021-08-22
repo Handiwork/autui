@@ -1,17 +1,13 @@
-import React, {
-  ReactNode,
-  FunctionComponent,
-  useState,
-  useCallback,
-} from "react";
+import React, { ReactNode, useState, useCallback, ComponentType } from "react";
 import { FaCode, FaChevronUp } from "react-icons/fa";
-import { Card, ContentButton, VerticalDivider } from "../../../lib";
-import CodeViewer from "../../components/CodeViewer";
+import { Card, ContentButton, VerticalDivider } from "autui";
+import styled from "styled-components";
+import CodeViewer from "@doc/components/CodeViewer";
 
 interface ExampleSectionProps {
   description: ReactNode;
   code: string;
-  component: FunctionComponent;
+  component: ComponentType<any>;
 }
 
 export default function ExampleSection(props: ExampleSectionProps) {
@@ -27,11 +23,11 @@ export default function ExampleSection(props: ExampleSectionProps) {
     margin: "0 2px",
   };
   return (
-    <div style={{ flex: "0 1 50%", maxWidth: "50%" }}>
+    <ExampleContainer>
       <Card>
         <Cmp />
         <VerticalDivider />
-        {description}
+        <DescriptionBlockWrapper>{description}</DescriptionBlockWrapper>
         <ContentButton onClick={toggleCode}>
           <FaCode size="1.0rem" style={iconStyle} />
           <span style={iconStyle}>Code</span>
@@ -47,6 +43,30 @@ export default function ExampleSection(props: ExampleSectionProps) {
           </>
         )}
       </Card>
-    </div>
+    </ExampleContainer>
   );
+}
+
+const ExampleContainer = styled.div`
+  flex: 0 1 auto;
+  width: 100%;
+
+  @media (min-width: 1200px) {
+    width: 50%;
+  }
+
+  @media (min-width: 1600px) {
+    width: 33.333%;
+  }
+`;
+
+const DescriptionBlockWrapper = styled.div`
+  padding: ${(p) => p.theme.spacing.containerPadding};
+  white-space: pre;
+`;
+
+export interface ExampleSectionConf {
+  description: ReactNode;
+  code: string;
+  component: ComponentType<any>;
 }

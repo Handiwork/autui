@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import ExamplePage from "../ExamplePage";
+import ExamplePageWrapper from "../ExamplePage";
 import ExampleSection from "../ExampleSection";
 
 import AbsoluteLayouts from "./AbsoluteLayouts";
@@ -8,12 +8,12 @@ import AbsoluteLayoutsDes from "./AbsoluteLayouts.txt?raw";
 
 export default function LayoutExamples(): ReactElement {
   return (
-    <ExamplePage title="Layout Examples">
+    <ExamplePageWrapper title="Layout Examples">
       <ExampleSection
         code={AbsoluteLayoutsCode}
         description={<pre>{AbsoluteLayoutsDes}</pre>}
         component={AbsoluteLayouts}
       />
-    </ExamplePage>
+    </ExamplePageWrapper>
   );
 }

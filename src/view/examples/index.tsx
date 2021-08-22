@@ -23,6 +23,11 @@ const routes: Array<IRoute> = [
     title: "Inputs",
     component: loadable(() => import("./inputs")),
   },
+  {
+    path: "images",
+    title: "Images",
+    component: loadable(() => import("./images")),
+  },
 ];
 
 routes.forEach((it) => {

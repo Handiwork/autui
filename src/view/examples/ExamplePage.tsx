@@ -1,12 +1,13 @@
 import React, { HTMLAttributes } from "react";
-import { Container, H3 } from "../../../lib";
+import { Container, H3 } from "autui";
 import HelmetTitle from "../../components/HelmetTitle";
+import ExampleSection, { ExampleSectionConf } from "./ExampleSection";
 
 interface ExamplePageProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
 }
 
-export default function ExamplePage(props: ExamplePageProps) {
+export default function ExamplePageWrapper(props: ExamplePageProps) {
   const { title, children, style, ...others } = props;
   return (
     <div
@@ -20,4 +21,27 @@ export default function ExamplePage(props: ExamplePageProps) {
       <div style={{ display: "flex", flexWrap: "wrap" }}>{children}</div>
     </div>
   );
+}
+
+interface ExamplePageConf {
+  title: string;
+  sections: ExampleSectionConf[];
+}
+
+export function examplePage(pageConfs: ExamplePageConf) {
+  return function ExamplePage() {
+    return (
+      <ExamplePageWrapper title={pageConfs.title}>
+        {pageConfs.sections.map((it, i) => (
+          <ExampleSection
+            // eslint-disable-next-line react/no-array-index-key
+            key={i}
+            component={it.component}
+            code={it.code}
+            description={it.description}
+          />
+        ))}
+      </ExamplePageWrapper>
+    );
+  };
 }

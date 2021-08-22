@@ -1,5 +1,5 @@
 import React from "react";
-import ExamplePage from "../ExamplePage";
+import ExamplePageWrapper from "../ExamplePage";
 import ExampleSection from "../ExampleSection";
 
 import NormalButtons from "./NormalButtons";
@@ -11,17 +11,17 @@ import ContentButtonsDes from "./ContentButtons.txt?raw";
 
 export default function ButtonExamples() {
   return (
-    <ExamplePage title="Button Examples">
+    <ExamplePageWrapper title="Button Examples">
       <ExampleSection
         code={NormalButtonsCode}
-        description={<pre>{NormalButtonsDes}</pre>}
+        description={NormalButtonsDes}
         component={NormalButtons}
       />
       <ExampleSection
         code={ContentButtonsCode}
-        description={<pre>{ContentButtonsDes}</pre>}
+        description={ContentButtonsDes}
         component={ContentButtons}
       />
-    </ExamplePage>
+    </ExamplePageWrapper>
   );
 }

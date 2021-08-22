@@ -1,5 +1,5 @@
 import React from "react";
-import ExamplePage from "../ExamplePage";
+import ExamplePageWrapper from "../ExamplePage";
 import ExampleSection from "../ExampleSection";
 
 import OutlinedInputs from "./OutlinedInputs";
@@ -11,7 +11,7 @@ import UnderlinedInputsDes from "./UnderlinedInputs.txt?raw";
 
 export default function InputExamples() {
   return (
-    <ExamplePage title="Input Examples">
+    <ExamplePageWrapper title="Input Examples">
       <ExampleSection
         component={OutlinedInputs}
         description={OutlinedInputsDes}
@@ -22,6 +22,6 @@ export default function InputExamples() {
         description={UnderlinedInputsDes}
         code={UnderlinedInputsCode}
       />
-    </ExamplePage>
+    </ExamplePageWrapper>
   );
 }
