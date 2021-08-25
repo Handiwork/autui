@@ -38,5 +38,5 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v2.5.0
         with:
           # Build directory to deploy
-          build_dir: /doc/
+          build_dir: doc
 
