@@ -14,9 +14,9 @@
   "types": "./dist/types/index.d.ts",
   "scripts": {
     "dev": "vite --host",
-    "build:doc": "vite build ",
-    "build:lib": "vite build -c vite.lib.ts",
+    "build:doc": "vite build",
     "build:types": "tsc -p lib --emitDeclarationOnly",
+    "build": "node ./scripts/build.lib.js",
     "serve": "vite preview",
     "lint": "eslint . --ext ts,tsx,js,jsx",
     "rollup:types": "api-extractor run"
@@ -42,6 +42,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
+    "front-matter": "^4.0.2",
     "jest": "^27.0.6",
     "markdown-to-jsx": "^7.1.3",
     "prettier": "^2.3.2",
@@ -62,7 +63,5 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "front-matter": "^4.0.2"
-  }
+  "dependencies": {}
 }

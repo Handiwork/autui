@@ -1,14 +1,15 @@
+import { useMemo, useState } from "react";
 import styled, { css } from "styled-components";
 
 const sliderThumbStyle = css`
   -webkit-appearance: none;
-  width: 15px;
+  width: 1px;
   height: ${(p) => p.theme.spacing.containerPadding};
   background: ${(p) => p.theme.colors.primary};
   border: none;
   border-radius: 0;
   cursor: pointer;
-  box-shadow: -407px 0 0 400px ${(p) => p.theme.colors.primary};
+  box-shadow: -401px 0 0 400px ${(p) => p.theme.colors.primary};
 `;
 
 const colorSwatchStyle = css`
@@ -73,3 +74,26 @@ export const UnderlinedInput = styled.input`
   border-radius: 0;
   ${inputBaseStyle}
 `;
+
+interface DataBinder<T> {
+  value: T;
+  onInput: React.FormEventHandler<HTMLInputElement> | undefined;
+}
+
+type DataBinders<T> = { [k in keyof T]: DataBinder<T[k]> };
+
+export function useForm<T>(init: T): [T, DataBinders<T>] {
+  const [state, setState] = useState(init);
+  const binders: DataBinders<T> = useMemo(() => {
+    return new Proxy<DataBinders<T>>({} as any, {
+      get(_, p) {
+        return {
+          value: (state as any)[p],
+          onChange: (e: any) =>
+            setState((s) => ({ ...s, [p]: e.target.value })),
+        };
+      },
+    });
+  }, [state, setState]);
+  return [state, binders];
+}
