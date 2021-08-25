@@ -1,5 +1,5 @@
 import loadable from "@loadable/component";
-import masterDetailPage from "../../components/masterDetialPage";
+import masterDetailPage from "../../components/masterDetailPage";
 import { IRoute } from "../../data/IRoute";
 
 const routes: Array<IRoute> = [

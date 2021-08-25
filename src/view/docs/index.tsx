@@ -1,5 +1,5 @@
 import markdownPage from "@doc/components/markdownPage";
-import masterDetailPage from "@doc/components/masterDetialPage";
+import masterDetailPage from "@doc/components/masterDetailPage";
 import { IRoute } from "../../data/IRoute";
 
 const routes: Array<IRoute> = [
