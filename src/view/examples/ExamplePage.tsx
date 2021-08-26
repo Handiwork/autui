@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react";
 import { Container, H3 } from "autui";
 import HelmetTitle from "../../components/HelmetTitle";
-import ExampleSection, { ExampleSectionConf } from "./ExampleSection";
+import { LazyExampleSection, LazyExampleSectionConf } from "./ExampleSection";
 
 interface ExamplePageProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -23,17 +23,17 @@ export default function ExamplePageWrapper(props: ExamplePageProps) {
   );
 }
 
-interface ExamplePageConf {
+export interface LazyExamplePageConf {
   title: string;
-  sections: ExampleSectionConf[];
+  sections: LazyExampleSectionConf[];
 }
 
-export function examplePage(pageConfs: ExamplePageConf) {
-  return function ExamplePage() {
+export function lazyExamplePage(pageConfs: LazyExamplePageConf) {
+  return function LazyExamplePage() {
     return (
       <ExamplePageWrapper title={pageConfs.title}>
         {pageConfs.sections.map((it, i) => (
-          <ExampleSection
+          <LazyExampleSection
             // eslint-disable-next-line react/no-array-index-key
             key={i}
             component={it.component}

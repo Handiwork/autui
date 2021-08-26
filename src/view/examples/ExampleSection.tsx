@@ -3,6 +3,7 @@ import { FaCode, FaChevronUp } from "react-icons/fa";
 import { Card, ContentButton, VerticalDivider } from "autui";
 import styled from "styled-components";
 import CodeViewer from "@doc/components/CodeViewer";
+import loadable from "@loadable/component";
 
 interface ExampleSectionProps {
   description: ReactNode;
@@ -51,11 +52,11 @@ const ExampleContainer = styled.div`
   flex: 0 1 auto;
   width: 100%;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1000px) {
     width: 50%;
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: 1500px) {
     width: 33.333%;
   }
 `;
@@ -69,4 +70,27 @@ export interface ExampleSectionConf {
   description: ReactNode;
   code: string;
   component: ComponentType<any>;
+}
+
+export interface LazyExampleSectionConf {
+  component: () => Promise<any>;
+  code: () => Promise<string>;
+  description: () => Promise<any>;
+}
+
+export function LazyExampleSection(props: LazyExampleSectionConf) {
+  const Datum = loadable.lib(() =>
+    Promise.all([props.component(), props.code(), props.description()])
+  );
+  return (
+    <Datum>
+      {(datum) => (
+        <ExampleSection
+          component={datum[0].default}
+          code={datum[1]}
+          description={datum[2]}
+        />
+      )}
+    </Datum>
+  );
 }
