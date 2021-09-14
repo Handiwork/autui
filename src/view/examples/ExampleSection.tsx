@@ -84,11 +84,11 @@ export function LazyExampleSection(props: LazyExampleSectionConf) {
   );
   return (
     <Datum>
-      {(datum) => (
+      {([component, code, description]) => (
         <ExampleSection
-          component={datum[0].default}
-          code={datum[1]}
-          description={datum[2]}
+          component={component}
+          code={code}
+          description={description}
         />
       )}
     </Datum>

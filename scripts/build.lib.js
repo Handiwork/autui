@@ -12,13 +12,14 @@ const typesRelativeDir = "./types";
 const libName = "autui";
 
 function generateFileName(format) {
-  return `autui.${format}.js`;
+  return `${libName}.${format}.js`;
 }
 const umdFilePath = `./${generateFileName("umd")}`;
 const esFilePath = `./${generateFileName("es")}`;
 
 async function buildLib() {
   return vite.build({
+    publicDir: false,
     build: {
       outDir: outputDir,
       emptyOutDir: true,

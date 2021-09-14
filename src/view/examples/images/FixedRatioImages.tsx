@@ -1,6 +1,5 @@
 import { FixedRatioImage } from "autui";
-import React from "react";
-import logo from "../../../favicon.png";
+import logo from "@doc/favicon.svg";
 
 export default function FixedRatioImages() {
   return (

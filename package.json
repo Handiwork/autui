@@ -3,15 +3,6 @@
   "version": "0.0.0",
   "license": "UNLICENSED",
   "main": "./dist/autui.umd.js",
-  "module": "./dist/autui.es.js",
-  "exports": {
-    ".": {
-      "default": "./dist/autui.umd.js",
-      "import": "./dist/autui.es.js",
-      "require": "./dist/autui.umd.js"
-    }
-  },
-  "types": "./dist/types/index.d.ts",
   "scripts": {
     "dev": "vite --host",
     "build:doc": "vite build",
@@ -19,7 +10,8 @@
     "build": "node ./scripts/build.lib.js",
     "serve": "vite preview",
     "lint": "eslint . --ext ts,tsx,js,jsx",
-    "rollup:types": "api-extractor run"
+    "rollup:types": "api-extractor run",
+    "index:examples": "node ./scripts/generate_example_indices.js"
   },
   "devDependencies": {
     "@loadable/component": "^5.15.0",
@@ -56,7 +48,8 @@
     "react-syntax-highlighter": "^15.4.4",
     "styled-components": "^5.3.0",
     "typescript": "^4.3.2",
-    "vite": "^2.4.4"
+    "vite": "^2.5.7",
+    "vite-react-jsx": "^1.1.2"
   },
   "peerDependencies": {
     "react": "^17.0.0",

@@ -35,7 +35,7 @@ function scanExampleSections(dirname) {
     p = p.replace(/\\/g, "/");
     if (!p.startsWith(".")) p = `./${p}`;
     return {
-      component: `() => import("${p}")`,
+      component: `() => import("${p}").then(de)`,
       code: `() => import("${p}?raw").then(de)`,
       description: files.includes(`${it}.txt`)
         ? `() => import("${p}.txt?raw").then(de)`
@@ -67,8 +67,8 @@ ${sections.map((it) => generateSection(it)).join("\n,\n")}
 }
 
 function generateRoutes(indices) {
-  return `import masterDetailPage from "../../components/masterDetailPage";
-import { IRoute } from "../../data/IRoute";
+  return `import masterDetailPage from "@doc/components/masterDetailPage";
+import { IRoute } from "@doc/data/IRoute";
 import { lazyExamplePage } from "./ExamplePage";
 
 const de = (it: any) => it.default;

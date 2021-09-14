@@ -1,5 +1,5 @@
-import masterDetailPage from "../../components/masterDetailPage";
-import { IRoute } from "../../data/IRoute";
+import masterDetailPage from "@doc/components/masterDetailPage";
+import { IRoute } from "@doc/data/IRoute";
 import { lazyExamplePage } from "./ExamplePage";
 
 const de = (it: any) => it.default;
@@ -12,13 +12,13 @@ const routes: IRoute[] = [
       title: "Buttons",
       sections: [
         {
-          component: () => import("./buttons/ContentButtons"),
+          component: () => import("./buttons/ContentButtons").then(de),
           code: () => import("./buttons/ContentButtons?raw").then(de),
           description: () =>
             import("./buttons/ContentButtons.txt?raw").then(de),
         },
         {
-          component: () => import("./buttons/NormalButtons"),
+          component: () => import("./buttons/NormalButtons").then(de),
           code: () => import("./buttons/NormalButtons?raw").then(de),
           description: () => import("./buttons/NormalButtons.txt?raw").then(de),
         },
@@ -32,7 +32,7 @@ const routes: IRoute[] = [
       title: "Compositions",
       sections: [
         {
-          component: () => import("./compositions/BasicCompositions"),
+          component: () => import("./compositions/BasicCompositions").then(de),
           code: () => import("./compositions/BasicCompositions?raw").then(de),
           description: () =>
             import("./compositions/BasicCompositions.txt?raw").then(de),
@@ -47,7 +47,7 @@ const routes: IRoute[] = [
       title: "Images",
       sections: [
         {
-          component: () => import("./images/FixedRatioImages"),
+          component: () => import("./images/FixedRatioImages").then(de),
           code: () => import("./images/FixedRatioImages?raw").then(de),
           description: () =>
             import("./images/FixedRatioImages.txt?raw").then(de),
@@ -62,12 +62,12 @@ const routes: IRoute[] = [
       title: "Inputs",
       sections: [
         {
-          component: () => import("./inputs/OutlinedInputs"),
+          component: () => import("./inputs/OutlinedInputs").then(de),
           code: () => import("./inputs/OutlinedInputs?raw").then(de),
           description: () => import("./inputs/OutlinedInputs.txt?raw").then(de),
         },
         {
-          component: () => import("./inputs/UnderlinedInputs"),
+          component: () => import("./inputs/UnderlinedInputs").then(de),
           code: () => import("./inputs/UnderlinedInputs?raw").then(de),
           description: () =>
             import("./inputs/UnderlinedInputs.txt?raw").then(de),
@@ -82,7 +82,7 @@ const routes: IRoute[] = [
       title: "Layouts",
       sections: [
         {
-          component: () => import("./layouts/AbsoluteLayouts"),
+          component: () => import("./layouts/AbsoluteLayouts").then(de),
           code: () => import("./layouts/AbsoluteLayouts?raw").then(de),
           description: () =>
             import("./layouts/AbsoluteLayouts.txt?raw").then(de),

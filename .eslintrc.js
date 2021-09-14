@@ -14,6 +14,8 @@ module.exports = {
     "react/display-name": "off",
     "react/require-default-props": "off",
     "react/destructuring-assignment": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
