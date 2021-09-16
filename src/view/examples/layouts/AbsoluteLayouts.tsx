@@ -1,4 +1,3 @@
-import React from "react";
 import { AbsoluteLayout } from "autui";
 
 export default function AbsoluteLayouts() {

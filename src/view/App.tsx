@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AutuiThemeProvider, createTheme } from "autui";

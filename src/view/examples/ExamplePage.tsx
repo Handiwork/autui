@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import { Container, H3 } from "autui";
 import HelmetTitle from "../../components/HelmetTitle";
 import { LazyExampleSection, LazyExampleSectionConf } from "./ExampleSection";

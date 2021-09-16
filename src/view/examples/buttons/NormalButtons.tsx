@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Button } from "autui";
 import { FaShare } from "react-icons/fa";
 

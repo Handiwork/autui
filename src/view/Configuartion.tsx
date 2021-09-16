@@ -8,7 +8,6 @@ import {
   useTheme,
   useThemeUpdater,
 } from "autui";
-import React from "react";
 import styled from "styled-components";
 
 export default function Configuartion() {

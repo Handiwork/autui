@@ -1,4 +1,4 @@
-import React, { ReactElement, PropsWithChildren } from "react";
+import { ReactElement, PropsWithChildren } from "react";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import defaultStyle from "react-syntax-highlighter/dist/esm/styles/prism/coy";
 import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx";

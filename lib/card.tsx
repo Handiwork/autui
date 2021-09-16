@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode, useState } from "react";
+import { HTMLAttributes, ReactNode, useState } from "react";
 import styled from "styled-components";
 import { floatEffect } from "./effects";
 import { Container } from "./layout";

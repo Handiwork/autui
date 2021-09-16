@@ -39,7 +39,7 @@ function scanExampleSections(dirname) {
       code: `() => import("${p}?raw").then(de)`,
       description: files.includes(`${it}.txt`)
         ? `() => import("${p}.txt?raw").then(de)`
-        : `() => Promise.resolve("")`,
+        : `() => Promise.resolve({ default: ""})`,
     };
   });
 }

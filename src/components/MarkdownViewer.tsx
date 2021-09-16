@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Markdown from "markdown-to-jsx";
 import { H1, H2, H3, H4, H5, H6 } from "autui";
 import CodeViewer from "./CodeViewer";

@@ -1,12 +1,5 @@
 import { ThemeProvider, ThemeContext } from "styled-components";
-import React, {
-  ReactNode,
-  useContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-  createContext,
-} from "react";
+import { ReactNode, useContext, useState, Dispatch, SetStateAction, createContext } from "react";
 import Color from "color";
 import { Normalize } from "./normalize";
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { useJump } from "@doc/hooks";

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import loadable from "@loadable/component";
 import matter from "front-matter";
 import HelmetTitle from "@doc/components/HelmetTitle";

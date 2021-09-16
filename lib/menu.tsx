@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import React, { ReactElement, PropsWithChildren } from "react";
+import { ReactElement, PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<{
   className?: string;

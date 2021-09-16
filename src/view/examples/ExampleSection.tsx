@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useCallback, ComponentType } from "react";
+import { ReactNode, useState, useCallback, ComponentType } from "react";
 import { FaCode, FaChevronUp } from "react-icons/fa";
 import { Card, ContentButton, VerticalDivider } from "autui";
 import styled from "styled-components";
@@ -59,6 +59,8 @@ const ExampleContainer = styled.div`
   @media (min-width: 1500px) {
     width: 33.333%;
   }
+
+  transition: height 0.2s ease-in;
 `;
 
 const DescriptionBlockWrapper = styled.div`
