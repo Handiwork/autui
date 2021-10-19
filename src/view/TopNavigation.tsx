@@ -89,4 +89,5 @@ const BarContainer = styled.div`
   right: 0;
   left: 0;
   ${floatEffect}
+  z-index: 20;
 `;

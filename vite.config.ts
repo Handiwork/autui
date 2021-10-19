@@ -18,4 +18,9 @@ export default defineConfig({
   build: {
     outDir: "./doc",
   },
+  server: {
+    watch: {
+      ignored: ["./coverage/**/*"],
+    },
+  },
 });
