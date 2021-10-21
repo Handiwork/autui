@@ -22,81 +22,80 @@ const NavItem = ({ it }: { it: IRoute }) => {
 
 export default function masterDetailPage(routes: Array<IRoute>) {
   return function MasterDetialPage(): ReactElement {
-    const defaultRoute = routes[0];
-    const [active, setActive] = useState(false);
     return (
       <MasterDetailPageContainer top="48px">
-        <div
-          id="master"
-          role="contentinfo"
-          data-active={active}
-          onClick={() => setActive((v) => !v)}
-        >
-          <List>
-            {routes.map((it) => (
-              <NavItem it={it} key={it.path} />
-            ))}
-          </List>
-        </div>
-        <div id="detail">
-          <Switch>
-            {routes.map((it) => (
-              <Route key={it.path} path={it.path} component={it.component} />
-            ))}
-            {defaultRoute && <Redirect to={defaultRoute.path} />}
-          </Switch>
-        </div>
+        <MasterSec routes={routes} />
+        <DetailSec routes={routes} />
       </MasterDetailPageContainer>
     );
   };
 }
 const smallBreak = "600px";
-const MasterDetailPageContainer = styled(AbsoluteLayout)`
-  & > #master {
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: auto;
-    background-color: white;
-    transition: all 0.15s ease-in-out 0.15s;
 
-    @media (max-width: ${smallBreak}) {
-      &[data-active="false"] {
-        transform: translateX(calc(-100% + 16px));
-        background-color: transparent;
-        cursor: pointer;
-        & * {
-          pointer-events: none;
-        }
+function MasterSec(props: { routes: Array<IRoute> }) {
+  const [active, setActive] = useState(false);
+  return (
+    <MasterWrap data-active={active} onClick={() => setActive((v) => !v)}>
+      <List>
+        {props.routes.map((it) => (
+          <NavItem it={it} key={it.path} />
+        ))}
+      </List>
+    </MasterWrap>
+  );
+}
+
+const MasterWrap = styled(AbsoluteLayout)`
+  z-index: 1;
+  width: auto;
+  background-color: white;
+  transition: all 0.15s ease-in-out 0.15s;
+
+  @media (max-width: ${smallBreak}) {
+    &[data-active="false"] {
+      transform: translateX(calc(-100% + 16px));
+      background-color: transparent;
+      cursor: pointer;
+      & * {
+        pointer-events: none;
       }
     }
   }
-  & > #detail {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-  }
+`;
+
+function DetailSec(props: { routes: Array<IRoute> }) {
+  const defaultRoute = props.routes[0];
+  return (
+    <DetailWrapper>
+      <Switch>
+        {props.routes.map((it) => (
+          <Route key={it.path} path={it.path} component={it.component} />
+        ))}
+        {defaultRoute && <Redirect to={defaultRoute.path} />}
+      </Switch>
+    </DetailWrapper>
+  );
+}
+
+const DetailWrapper = styled(AbsoluteLayout)``;
+
+const MasterDetailPageContainer = styled(AbsoluteLayout)`
   @media (min-width: ${smallBreak}) {
-    & > #master {
+    & > ${MasterWrap} {
       position: sticky;
       left: 0;
       width: 200px;
     }
-    & > #detail {
+    & > ${DetailWrapper} {
       position: absolute;
       left: 200px;
     }
   }
   @media (min-width: 960px) {
-    & > #master {
+    & > ${MasterWrap} {
       width: 250px;
     }
-    & > #detail {
+    & > ${DetailWrapper} {
       left: 250px;
     }
   }

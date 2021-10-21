@@ -4,9 +4,10 @@ import { Card, ContentButton, VerticalDivider } from "autui";
 import styled from "styled-components";
 import CodeViewer from "@doc/components/CodeViewer";
 import loadable from "@loadable/component";
+import MarkdownViewer from "@doc/components/MarkdownViewer";
 
 interface ExampleSectionProps {
-  description: ReactNode;
+  description: string;
   code: string;
   component: ComponentType<any>;
 }
@@ -28,7 +29,8 @@ export default function ExampleSection(props: ExampleSectionProps) {
       <Card>
         <Cmp />
         <VerticalDivider />
-        <DescriptionBlockWrapper>{description}</DescriptionBlockWrapper>
+        {/* <DescriptionBlockWrapper>{description}</DescriptionBlockWrapper> */}
+        <MarkdownViewer>{description}</MarkdownViewer>
         <ContentButton onClick={toggleCode}>
           <FaCode size="1.0rem" style={iconStyle} />
           <span style={iconStyle}>Code</span>
@@ -61,11 +63,6 @@ const ExampleContainer = styled.div`
   }
 
   transition: height 0.2s ease-in;
-`;
-
-const DescriptionBlockWrapper = styled.div`
-  padding: ${(p) => p.theme.spacing.containerPadding};
-  white-space: pre;
 `;
 
 export interface ExampleSectionConf {

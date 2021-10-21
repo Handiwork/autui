@@ -14,7 +14,8 @@ function Code({
   className?: string;
   children: string;
 }) {
-  const language = className?.replace("lang-", "") ?? "bash";
+  const language = className?.replace("lang-", "");
+  if (!language) return <code>{children}</code>;
   return (
     <CodeViewer language={language as "tsx" | "typescript" | "bash"}>
       {children}
