@@ -12,15 +12,14 @@ const routes: IRoute[] = [
       title: "Buttons",
       sections: [
         {
-          component: () => import("./buttons/ContentButtons").then(de),
-          code: () => import("./buttons/ContentButtons?raw").then(de),
-          description: () =>
-            import("./buttons/ContentButtons.txt?raw").then(de),
+          component: () => import("./buttons/FlatButtons").then(de),
+          code: () => import("./buttons/FlatButtons?raw").then(de),
+          description: () => import("./buttons/FlatButtons.txt?raw").then(de),
         },
         {
-          component: () => import("./buttons/NormalButtons").then(de),
-          code: () => import("./buttons/NormalButtons?raw").then(de),
-          description: () => import("./buttons/NormalButtons.txt?raw").then(de),
+          component: () => import("./buttons/PureButtons").then(de),
+          code: () => import("./buttons/PureButtons?raw").then(de),
+          description: () => import("./buttons/PureButtons.txt?raw").then(de),
         },
       ],
     }),

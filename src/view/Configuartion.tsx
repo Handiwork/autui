@@ -1,6 +1,6 @@
 import {
   AbsoluteLayout,
-  Button,
+  InversedFlatButton,
   Container,
   createColors,
   OutlinedInput,
@@ -30,7 +30,7 @@ export default function Configuartion() {
           <OutlinedInput type="range" min="50" max="100" {...binders.root} />
           {form.root}%
         </label>
-        <Button
+        <InversedFlatButton
           onClick={() =>
             update((t) => ({
               ...t,
@@ -43,7 +43,7 @@ export default function Configuartion() {
           }
         >
           Apply
-        </Button>
+        </InversedFlatButton>
       </ConfigSection>
     </AbsoluteLayout>
   );

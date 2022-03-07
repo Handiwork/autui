@@ -1,6 +1,7 @@
-import { HTMLAttributes } from "react";
+import HelmetTitle from "@doc/components/HelmetTitle";
 import { Container, H3 } from "autui";
-import HelmetTitle from "../../components/HelmetTitle";
+import { HTMLAttributes } from "react";
+import styled from "styled-components";
 import { LazyExampleSection, LazyExampleSectionConf } from "./ExampleSection";
 
 interface ExamplePageProps extends HTMLAttributes<HTMLDivElement> {
@@ -18,10 +19,20 @@ export default function ExamplePageWrapper(props: ExamplePageProps) {
       <Container>
         <H3>{title}</H3>
       </Container>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>{children}</div>
+      <ExampleListWrapper>{children}</ExampleListWrapper>
     </div>
   );
 }
+
+const ExampleListWrapper = styled(Container)`
+  display: grid;
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 1800px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
 
 export interface LazyExamplePageConf {
   title: string;

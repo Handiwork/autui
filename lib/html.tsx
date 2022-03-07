@@ -41,3 +41,33 @@ export const H6 = styled.h6`
   font-size: ${(p) => p.theme.fontSizes.h6};
   ${headerBase}
 `;
+
+const inverseBaseStyle = css`
+  ${headerBase}
+  background-color:${(p) => p.theme.colors.primary};
+  color: ${(p) => p.theme.colors.textSecondary};
+`;
+
+export const HV1 = styled.h1`
+  ${inverseBaseStyle}
+`;
+
+export const HV2 = styled.h2`
+  ${inverseBaseStyle}
+`;
+
+export const HV3 = styled.h3`
+  ${inverseBaseStyle}
+`;
+
+export const HV4 = styled.h4`
+  ${inverseBaseStyle}
+`;
+
+export const HV5 = styled.h5`
+  ${inverseBaseStyle}
+`;
+
+export const HV6 = styled.h6`
+  ${inverseBaseStyle}
+`;

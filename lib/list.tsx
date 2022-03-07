@@ -13,7 +13,7 @@ interface ListItemProps {
 
 const listItemActive = css`
   background-color: ${(p) => p.theme.colors.primary};
-  color: ${(p) => p.theme.colors.onPrimary};
+  color: ${(p) => p.theme.colors.textSecondary};
   ${floatEffect}
 `;
 

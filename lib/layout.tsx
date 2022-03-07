@@ -31,3 +31,14 @@ export const VerticalDivider = styled.div`
   border-top: 1px solid rgba(0.2, 0.2, 0.2, 0.1);
   margin: ${(p) => p.theme.spacing.containerMargin} 0;
 `;
+
+export const XFlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+`;
+export const YFlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

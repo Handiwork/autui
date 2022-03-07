@@ -31,6 +31,12 @@ async function buildLib() {
       },
       rollupOptions: {
         external: Object.keys(packageInfo.peerDependencies),
+        output: {
+          globals: {
+            react: "React",
+            "styled-components": "styled",
+          },
+        },
       },
     },
   });

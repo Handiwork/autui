@@ -1,10 +1,10 @@
-import { ReactNode, useState, useCallback, ComponentType } from "react";
-import { FaCode, FaChevronUp } from "react-icons/fa";
-import { Card, ContentButton, VerticalDivider } from "autui";
-import styled from "styled-components";
 import CodeViewer from "@doc/components/CodeViewer";
-import loadable from "@loadable/component";
 import MarkdownViewer from "@doc/components/MarkdownViewer";
+import loadable from "@loadable/component";
+import { Card, ColorFlatButton, VerticalDivider } from "autui";
+import { ComponentType, ReactNode, useCallback, useState } from "react";
+import { FaChevronUp, FaCode } from "react-icons/fa";
+import styled from "styled-components";
 
 interface ExampleSectionProps {
   description: string;
@@ -18,31 +18,24 @@ export default function ExampleSection(props: ExampleSectionProps) {
   const toggleCode = useCallback(() => {
     setCurrentTab((e) => (e === "code" ? null : "code"));
   }, []);
-  const iconStyle = {
-    fontSize: "1.0rem",
-    verticalAlign: "middle",
-    display: "inline-block",
-    margin: "0 2px",
-  };
   return (
     <ExampleContainer>
       <Card>
         <Cmp />
         <VerticalDivider />
-        {/* <DescriptionBlockWrapper>{description}</DescriptionBlockWrapper> */}
         <MarkdownViewer>{description}</MarkdownViewer>
-        <ContentButton onClick={toggleCode}>
-          <FaCode size="1.0rem" style={iconStyle} />
-          <span style={iconStyle}>Code</span>
-        </ContentButton>
+        <ColorFlatButton onClick={toggleCode}>
+          <FaCode size="1.0rem" />
+          <span>Code</span>
+        </ColorFlatButton>
         {currentTab === "code" && (
           <>
             <VerticalDivider />
             <CodeViewer language="tsx">{code}</CodeViewer>
-            <ContentButton onClick={toggleCode}>
-              <FaChevronUp size="1.0rem" style={iconStyle} />
-              <span style={iconStyle}>Collapse</span>
-            </ContentButton>
+            <ColorFlatButton onClick={toggleCode}>
+              <FaChevronUp size="1.0rem" />
+              <span>Collapse</span>
+            </ColorFlatButton>
           </>
         )}
       </Card>
@@ -51,18 +44,16 @@ export default function ExampleSection(props: ExampleSectionProps) {
 }
 
 const ExampleContainer = styled.div`
-  flex: 0 1 auto;
   width: 100%;
-
-  @media (min-width: 1000px) {
-    width: 50%;
-  }
-
-  @media (min-width: 1500px) {
-    width: 33.333%;
-  }
-
   transition: height 0.2s ease-in;
+
+  & ${ColorFlatButton} {
+    display: inline-flex;
+    & * {
+      font-size: 1rem;
+      margin: 0 2px;
+    }
+  }
 `;
 
 export interface ExampleSectionConf {

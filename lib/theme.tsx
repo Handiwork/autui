@@ -1,20 +1,31 @@
 import { ThemeProvider, ThemeContext } from "styled-components";
-import { ReactNode, useContext, useState, Dispatch, SetStateAction, createContext } from "react";
+import {
+  ReactNode,
+  useContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+  createContext,
+} from "react";
 import Color from "color";
 import { Normalize } from "./normalize";
 
 export interface AutuiTheme {
+  borderRadius: string;
   colors: {
     primary: string;
-    onPrimary: string;
+    secondary: string;
+    accent: string;
     lightPrimary: string;
     darkenPrimary: string;
+    highlight: string;
     hoverLayer: string;
+    textPrimary: string;
+    textSecondary: string;
   };
-  borderRadius: string;
   spacing: {
-    containerPadding: string;
     containerMargin: string;
+    containerPadding: string;
   };
   fontSizes: {
     root: string;
@@ -35,18 +46,27 @@ declare module "styled-components" {
   }
 }
 
-export function createColors(primaryColor: string) {
+export function createColors(primaryColor: string): AutuiTheme["colors"] {
   const primary = Color(primaryColor);
+  const seconday = primary.hue(primary.hue() + 60);
+  const accent = primary.hue(primary.hue() + 180);
+
+  const highlight = primary.lightness(primary.lightness() * 1.2);
   const onPrimary = primary.isDark() ? Color("white") : Color("black");
   const lightPrimary = primary.lighten(0.5);
   const darkenPrimary = primary.darken(0.2);
   const hoverLayer = primary.lighten(0.6).alpha(0.15);
+  const textSecondary = Color("white");
   return {
     primary: primaryColor,
-    onPrimary: onPrimary.toString(),
+    secondary: seconday.toString(),
+    accent: accent.toString(),
     lightPrimary: lightPrimary.toString(),
     darkenPrimary: darkenPrimary.toString(),
     hoverLayer: hoverLayer.toString(),
+    highlight: highlight.toString(),
+    textPrimary: onPrimary.toString(),
+    textSecondary: textSecondary.toString(),
   };
 }
 
