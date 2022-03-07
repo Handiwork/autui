@@ -10,7 +10,7 @@ const HomeWrapper = styled(AbsoluteLayout)`
     ${(p) => p.theme.colors.primary},
     ${(p) => p.theme.colors.lightPrimary}
   );
-  color: ${(p) => p.theme.colors.onPrimary};
+  color: ${(p) => p.theme.colors.textSecondary};
 `;
 
 export default function Home(): ReactElement {

@@ -52,11 +52,11 @@ export function createColors(primaryColor: string): AutuiTheme["colors"] {
   const accent = primary.hue(primary.hue() + 180);
 
   const highlight = primary.lightness(primary.lightness() * 1.2);
-  const onPrimary = primary.isDark() ? Color("white") : Color("black");
+  const textPrimary = Color("black");
   const lightPrimary = primary.lighten(0.5);
   const darkenPrimary = primary.darken(0.2);
   const hoverLayer = primary.lighten(0.6).alpha(0.15);
-  const textSecondary = Color("white");
+  const textSecondary = primary.isDark() ? Color("white") : Color("black");
   return {
     primary: primaryColor,
     secondary: seconday.toString(),
@@ -65,7 +65,7 @@ export function createColors(primaryColor: string): AutuiTheme["colors"] {
     darkenPrimary: darkenPrimary.toString(),
     hoverLayer: hoverLayer.toString(),
     highlight: highlight.toString(),
-    textPrimary: onPrimary.toString(),
+    textPrimary: textPrimary.toString(),
     textSecondary: textSecondary.toString(),
   };
 }

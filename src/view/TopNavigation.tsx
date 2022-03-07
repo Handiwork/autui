@@ -75,7 +75,7 @@ const ContentContainer = styled.div`
   height: 48px;
   &[data-home="true"] {
     max-width: 1000px;
-    color: ${(p) => p.theme.colors.onPrimary};
+    color: ${(p) => p.theme.colors.textSecondary};
 
     @media screen and (min-width: 1600px) {
       max-width: 1200px;
