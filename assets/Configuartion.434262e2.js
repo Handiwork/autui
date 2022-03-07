@@ -1,0 +1,5 @@
+var u=Object.defineProperty,d=Object.defineProperties;var y=Object.getOwnPropertyDescriptors;var p=Object.getOwnPropertySymbols;var f=Object.prototype.hasOwnProperty,h=Object.prototype.propertyIsEnumerable;var c=(e,r,o)=>r in e?u(e,r,{enumerable:!0,configurable:!0,writable:!0,value:o}):e[r]=o,t=(e,r)=>{for(var o in r||(r={}))f.call(r,o)&&c(e,o,r[o]);if(p)for(var o of p(r))h.call(r,o)&&c(e,o,r[o]);return e},a=(e,r)=>d(e,y(r));import{u as b,i as C,j as x,A as j,O as m,I as z,k as S,C as g}from"./index.c77bc9da.js";import{j as s,a as n,s as k}from"./vendor.921b6c1a.js";function T(){const e=b(),r=C(),[o,i]=x({root:e.fontSizes.root.replace("%",""),primary:e.colors.primary});return s(j,{top:"48px",children:n(A,{children:[n("label",{children:["primary color:",s(m,t({type:"color"},i.primary)),o.primary]}),n("label",{children:["root font size:",s(m,t({type:"range",min:"50",max:"100"},i.root)),o.root,"%"]}),s(z,{onClick:()=>r(l=>a(t({},l),{colors:S(o.primary),fontSizes:a(t({},l.fontSizes),{root:`${o.root}%`})})),children:"Apply"})]})})}const A=k(g)`
+  > label {
+    display: block;
+  }
+`;export{T as default};
