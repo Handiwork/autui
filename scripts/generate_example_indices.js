@@ -15,6 +15,17 @@ function scanExamples(dirname) {
     .map((it) => it.name);
 }
 
+const descriptionExtensions = [".txt", ".md"];
+
+function getDescriptionImporLiteral(files, componentName, pathname) {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const ext of descriptionExtensions) {
+    if (files.includes(componentName + ext))
+      return `() => import("${pathname + ext}?raw").then(de)`;
+  }
+  return `() => Promise.resolve("")`;
+}
+
 /**
  *
  * @param {string} dirname dir name
@@ -24,22 +35,25 @@ function scanExampleSections(dirname) {
     .readdirSync(dirname, { withFileTypes: true })
     .filter((it) => it.isFile())
     .map((it) => it.name);
+  console.log("files:");
   console.log(files);
   const components = files
     .map((it) => /([A-Z]\w+)\.tsx/.exec(it))
     .filter((it) => it != null)
     .map((it) => it[1]);
+  console.log("components:");
   console.log(components);
-  return components.map((it) => {
-    let p = path.relative(exampleDir, path.resolve(dirname, it));
-    p = p.replace(/\\/g, "/");
-    if (!p.startsWith(".")) p = `./${p}`;
+  return components.map((componentName) => {
+    let pathname = path.relative(
+      exampleDir,
+      path.resolve(dirname, componentName)
+    );
+    pathname = pathname.replace(/\\/g, "/");
+    if (!pathname.startsWith(".")) pathname = `./${pathname}`;
     return {
-      component: `() => import("${p}").then(de)`,
-      code: `() => import("${p}?raw").then(de)`,
-      description: files.includes(`${it}.txt`)
-        ? `() => import("${p}.txt?raw").then(de)`
-        : `() => Promise.resolve("")`,
+      component: `() => import("${pathname}").then(de)`,
+      code: `() => import("${pathname}?raw").then(de)`,
+      description: getDescriptionImporLiteral(files, componentName, pathname),
     };
   });
 }
@@ -56,7 +70,7 @@ function generateRoute(p, sections) {
   const title = `"${capitalize(p)}"`;
   return `{
   title: ${title},
-  path: "/components/${p}",
+  path: "${p}",
   component: lazyExamplePage({
     title: ${title},
     sections: [
@@ -67,8 +81,7 @@ ${sections.map((it) => generateSection(it)).join("\n,\n")}
 }
 
 function generateRoutes(indices) {
-  return `import masterDetailPage from "@doc/components/masterDetailPage";
-import { IRoute } from "@doc/data/IRoute";
+  return `import { IRoute } from "@doc/data/IRoute";
 import { lazyExamplePage } from "./ExamplePage";
 
 const de = (it: any) => it.default;
@@ -79,7 +92,7 @@ ${Object.entries(indices)
   .join("\n,\n")}
 ]
 
-export default masterDetailPage(routes);
+export default routes;
 `;
 }
 
@@ -90,7 +103,7 @@ function main() {
     indices[it] = scanExampleSections(path.resolve(exampleDir, it));
   });
   const content = generateRoutes(indices);
-  fs.writeFileSync(path.resolve(exampleDir, "index.tsx"), content, {
+  fs.writeFileSync(path.resolve(exampleDir, "routes.tsx"), content, {
     encoding: "utf-8",
   });
 }

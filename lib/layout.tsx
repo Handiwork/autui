@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CSSProperties } from "react";
+import { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 type AbosulteLayoutProps = Pick<
   CSSProperties,
@@ -41,4 +41,25 @@ export const YFlexBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+interface ExpandableProps extends HTMLAttributes<HTMLDivElement> {
+  expanded: boolean;
+  maxHeight?: number;
+  children?: ReactNode;
+}
+
+export function Expandable(props: ExpandableProps) {
+  const { expanded, maxHeight = 1500, children, ...rest } = props;
+  return (
+    <ExpandableWrapper expanded={expanded} maxHeight={maxHeight} {...rest}>
+      {children}
+    </ExpandableWrapper>
+  );
+}
+
+const ExpandableWrapper = styled.div<{ maxHeight: number; expanded: boolean }>`
+  transition: max-height 0.4s ease-in-out;
+  max-height: ${(p) => (p.expanded ? `${p.maxHeight}px` : 0)};
+  overflow: ${(p) => (p.expanded ? "auto" : "hidden")};
 `;

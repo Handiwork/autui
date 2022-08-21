@@ -1,14 +1,19 @@
 import { StrictMode } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
-import App from "./view/App";
 import { name } from "../package.json";
+import App from "./view/App";
 
-ReactDOM.render(
-  <StrictMode>
-    <Router basename={`/${name}`}>
-      <App />
-    </Router>
-  </StrictMode>,
-  document.getElementById("root")
-);
+const rootEle = document.getElementById("root");
+if (!rootEle) {
+  document.write('<h1>no container named "root"</h1>');
+} else {
+  const root = createRoot(rootEle);
+  root.render(
+    <StrictMode>
+      <Router basename={`/${name}`}>
+        <App />
+      </Router>
+    </StrictMode>
+  );
+}

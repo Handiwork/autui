@@ -5,7 +5,7 @@ import HelmetTitle from "@doc/components/HelmetTitle";
 import MarkdownViewer from "@doc/components/MarkdownViewer";
 import { Container } from "autui";
 
-export default function markdownPage(
+export default function createMarkdownPage(
   loader: () => Promise<string | { default: string }>
 ) {
   return function MarkdownPage(): ReactElement {

@@ -1,13 +1,13 @@
-import { ReactElement, ReactNode } from "react";
-import styled from "styled-components";
-import { useRouteMatch, useHistory } from "react-router-dom";
 import { useJump } from "@doc/hooks";
-import { floatEffect, Container, ListItem } from "autui";
+import { Container, floatEffect, ListItem } from "autui";
+import { ReactElement, ReactNode } from "react";
+import { useMatch, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Logo from "../components/Logo";
 import routes from "./routes";
 
 export default function TopNavigation(): ReactElement {
-  const home = useRouteMatch({ path: "/", exact: true });
+  const home = useMatch({ path: "/", end: true });
   return (
     <BarContainer>
       <ContentContainer data-home={!!home}>
@@ -23,12 +23,12 @@ export default function TopNavigation(): ReactElement {
 }
 
 function LogoHome() {
-  const history = useHistory();
-  const home = useRouteMatch({ path: "/", exact: true });
+  const navigate = useNavigate();
+  const home = useMatch({ path: "/", end: true });
   return (
     <LogoHomeContainer
       data-home={!!home}
-      onClick={() => !home && history.push("/")}
+      onClick={() => !home && navigate("/")}
     >
       <Logo />
       <span>Autui</span>

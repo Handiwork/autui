@@ -1,26 +1,26 @@
 import { AbsoluteLayout, List, ListItem } from "autui";
-import { ReactElement, useState } from "react";
+import { createElement, ReactElement, useState } from "react";
 import {
-  Redirect,
+  Navigate,
   Route,
-  Switch,
-  useHistory,
-  useRouteMatch,
+  Routes,
+  useMatch,
+  useNavigate,
 } from "react-router-dom";
 import styled from "styled-components";
 import { IRoute } from "../data/IRoute";
 
 const NavItem = ({ it }: { it: IRoute }) => {
-  const history = useHistory();
-  const match = useRouteMatch(it.path);
+  const navigate = useNavigate();
+  const match = useMatch({ path: it.path, end: false });
   return (
-    <ListItem onClick={() => history.push(it.path)} active={!!match}>
+    <ListItem onClick={() => navigate(it.path)} active={!!match}>
       {it.title}
     </ListItem>
   );
 };
 
-export default function masterDetailPage(routes: Array<IRoute>) {
+export default function createMasterDetailPage(routes: Array<IRoute>) {
   return function MasterDetialPage(): ReactElement {
     return (
       <MasterDetailPageContainer top="48px">
@@ -67,12 +67,18 @@ function DetailSec(props: { routes: Array<IRoute> }) {
   const defaultRoute = props.routes[0];
   return (
     <DetailWrapper>
-      <Switch>
+      <Routes>
         {props.routes.map((it) => (
-          <Route key={it.path} path={it.path} component={it.component} />
+          <Route
+            key={it.path}
+            path={it.path}
+            element={createElement(it.component, {})}
+          />
         ))}
-        {defaultRoute && <Redirect to={defaultRoute.path} />}
-      </Switch>
+        {defaultRoute && (
+          <Route index element={<Navigate to={defaultRoute.path} replace />} />
+        )}
+      </Routes>
     </DetailWrapper>
   );
 }

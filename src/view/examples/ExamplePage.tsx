@@ -2,7 +2,7 @@ import HelmetTitle from "@doc/components/HelmetTitle";
 import { Container, H3 } from "autui";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
-import { LazyExampleSection, LazyExampleSectionConf } from "./ExampleSection";
+import { LazyExampleSection, LazyExampleSectionProps } from "./ExampleSection";
 
 interface ExamplePageProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -36,7 +36,7 @@ const ExampleListWrapper = styled(Container)`
 
 export interface LazyExamplePageConf {
   title: string;
-  sections: LazyExampleSectionConf[];
+  sections: LazyExampleSectionProps[];
 }
 
 export function lazyExamplePage(pageConfs: LazyExamplePageConf) {

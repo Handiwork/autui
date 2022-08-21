@@ -1,8 +1,8 @@
 import CodeViewer from "@doc/components/CodeViewer";
 import MarkdownViewer from "@doc/components/MarkdownViewer";
 import loadable from "@loadable/component";
-import { Card, ColorFlatButton, VerticalDivider } from "autui";
-import { ComponentType, ReactNode, useCallback, useState } from "react";
+import { Card, ColorFlatButton, Expandable, VerticalDivider } from "autui";
+import { ComponentType, useCallback, useState } from "react";
 import { FaChevronUp, FaCode } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -25,19 +25,17 @@ export default function ExampleSection(props: ExampleSectionProps) {
         <VerticalDivider />
         <MarkdownViewer>{description}</MarkdownViewer>
         <ColorFlatButton onClick={toggleCode}>
-          <FaCode size="1.0rem" />
+          <FaCode />
           <span>Code</span>
         </ColorFlatButton>
-        {currentTab === "code" && (
-          <>
-            <VerticalDivider />
-            <CodeViewer language="tsx">{code}</CodeViewer>
-            <ColorFlatButton onClick={toggleCode}>
-              <FaChevronUp size="1.0rem" />
-              <span>Collapse</span>
-            </ColorFlatButton>
-          </>
-        )}
+        <Expandable expanded={currentTab === "code"}>
+          <VerticalDivider />
+          <CodeViewer language="tsx">{code}</CodeViewer>
+          <ColorFlatButton onClick={toggleCode}>
+            <FaChevronUp />
+            <span>Collapse</span>
+          </ColorFlatButton>
+        </Expandable>
       </Card>
     </ExampleContainer>
   );
@@ -56,19 +54,13 @@ const ExampleContainer = styled.div`
   }
 `;
 
-export interface ExampleSectionConf {
-  description: ReactNode;
-  code: string;
-  component: ComponentType<any>;
-}
-
-export interface LazyExampleSectionConf {
+export interface LazyExampleSectionProps {
   component: () => Promise<any>;
   code: () => Promise<string>;
   description: () => Promise<any>;
 }
 
-export function LazyExampleSection(props: LazyExampleSectionConf) {
+export function LazyExampleSection(props: LazyExampleSectionProps) {
   const Datum = loadable.lib(() =>
     Promise.all([props.component(), props.code(), props.description()])
   );
