@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode, useState } from "react";
 import styled from "styled-components";
 import { floatEffect } from "./effects";
-import { Container } from "./layout";
+import { Container, Expandable } from "./layout";
 
 export const Card = styled(Container)`
   border-radius: ${(p) => p.theme.borderRadius};
@@ -20,7 +20,7 @@ export const ExpandableCard = (props: ExpandableCardProps) => {
       <div onClick={() => setExpanded((e) => !e)} role="button" tabIndex={0}>
         {expanded ? "collapse" : "expand"}
       </div>
-      {expanded && props.extra}
+      <Expandable expanded={expanded}>{props.extra}</Expandable>
     </Card>
   );
 };

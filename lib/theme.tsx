@@ -1,13 +1,13 @@
-import { ThemeProvider, ThemeContext } from "styled-components";
+import * as Color from "color";
 import {
+  createContext,
+  Dispatch,
   ReactNode,
+  SetStateAction,
   useContext,
   useState,
-  Dispatch,
-  SetStateAction,
-  createContext,
 } from "react";
-import Color from "color";
+import { ThemeContext, ThemeProvider } from "styled-components";
 import { Normalize } from "./normalize";
 
 export interface AutuiTheme {

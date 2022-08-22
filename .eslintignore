@@ -30,6 +30,9 @@ node_modules
 # OSX
 .DS_Store
 
+# github configuration
+.github
+
 # App packaged
 release
 src/*.main.prod.js
@@ -43,6 +46,7 @@ dist
 dll
 main.js
 main.js.map
+doc
 
 .idea
 npm-debug.log.*

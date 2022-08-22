@@ -1,9 +1,8 @@
-import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
-import jsx from "vite-react-jsx";
+import viteReact from "@vitejs/plugin-react";
 import { resolve } from "path";
-import tsConfig from "./tsconfig.json";
+import { defineConfig } from "vite";
 import { name } from "./package.json";
+import tsConfig from "./tsconfig.json";
 
 const alias = Object.entries(tsConfig.compilerOptions.paths).map(([k, v]) => ({
   find: k,
@@ -13,7 +12,7 @@ const alias = Object.entries(tsConfig.compilerOptions.paths).map(([k, v]) => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   base: `/${name}/`,
-  plugins: [reactRefresh(), jsx()],
+  plugins: [viteReact()],
   resolve: { alias },
   build: {
     outDir: "./doc",

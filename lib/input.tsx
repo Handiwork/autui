@@ -1,8 +1,5 @@
-import { HTMLAttributes, useMemo, useState } from "react";
-import { ChromePicker, ColorChangeHandler } from "react-color";
-import OutsideClickHandler from "react-outside-click-handler";
-import { usePopper } from "react-popper";
-import styled, { css, useTheme } from "styled-components";
+import { useMemo, useState } from "react";
+import styled, { css } from "styled-components";
 
 const sliderThumbStyle = css`
   -webkit-appearance: none;
@@ -121,56 +118,3 @@ export const PasswordField = styled.input.attrs(() => ({ type: "password" }))`
 export const PhoneField = styled.input.attrs(() => ({ type: "tel" }))`
   ${textFieldBase}
 `;
-
-const InnerColorFieldWrapper = styled.div`
-  ${textFieldBase}
-`;
-
-export function ColorField(
-  props: HTMLAttributes<HTMLDivElement> & {
-    color: string;
-    onChangeComplete?: ColorChangeHandler;
-  }
-) {
-  const { color, onChangeComplete, ...others } = props;
-  const theme = useTheme();
-  const [showPicker, setShowPicker] = useState(false);
-
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
-    null
-  );
-  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-  const { styles, attributes } = usePopper(referenceElement, popperElement);
-  return (
-    <div {...others}>
-      <InnerColorFieldWrapper
-        ref={setReferenceElement}
-        onClick={() => setShowPicker(true)}
-      >
-        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-        <div
-          role="textbox"
-          tabIndex={0}
-          style={{
-            height: theme.fontSizes.root,
-            width: "100%",
-            backgroundColor: color,
-            borderRadius: 4,
-          }}
-          onClick={() => setShowPicker(true)}
-        />
-      </InnerColorFieldWrapper>
-      {showPicker && (
-        <div
-          ref={setPopperElement}
-          style={styles.popper}
-          {...attributes.popper}
-        >
-          <OutsideClickHandler onOutsideClick={() => setShowPicker(false)}>
-            <ChromePicker color={color} onChangeComplete={onChangeComplete} />
-          </OutsideClickHandler>
-        </div>
-      )}
-    </div>
-  );
-}
