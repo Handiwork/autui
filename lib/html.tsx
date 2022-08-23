@@ -45,7 +45,7 @@ export const H6 = styled.h6`
 const inverseBaseStyle = css`
   ${headerBase}
   background-color:${(p) => p.theme.colors.primary};
-  color: ${(p) => p.theme.colors.textSecondary};
+  color: ${(p) => p.theme.colors.onPrimary};
 `;
 
 export const HV1 = styled.h1`

@@ -1,13 +1,15 @@
 import viteReact from "@vitejs/plugin-react";
 import { resolve } from "path";
-import { defineConfig } from "vite";
+import { AliasOptions, defineConfig } from "vite";
 import { name } from "./package.json";
 import tsConfig from "./tsconfig.json";
 
-const alias = Object.entries(tsConfig.compilerOptions.paths).map(([k, v]) => ({
-  find: k,
-  replacement: resolve(__dirname, v[0]),
-}));
+const alias: AliasOptions = Object.entries(tsConfig.compilerOptions.paths).map(
+  ([k, v]) => ({
+    find: k,
+    replacement: resolve(__dirname, v[0]),
+  })
+);
 
 // https://vitejs.dev/config/
 export default defineConfig({

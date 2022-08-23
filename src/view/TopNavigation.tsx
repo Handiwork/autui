@@ -1,5 +1,4 @@
-import { useJump } from "@doc/hooks";
-import { Container, floatEffect, ListItem } from "autui";
+import { Container, floatEffect, ListItem, XFlexBox } from "autui";
 import { ReactElement, ReactNode } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -12,11 +11,11 @@ export default function TopNavigation(): ReactElement {
     <BarContainer>
       <ContentContainer data-home={!!home}>
         <LogoHome />
-        <div style={{ display: "flex", margin: "0 8px" }}>
+        <XFlexBox style={{ display: "flex", margin: "0 8px" }}>
           {routes.map((it) => (
             <NavItem key={it.path} path={it.path} title={it.title} />
           ))}
-        </div>
+        </XFlexBox>
       </ContentContainer>
     </BarContainer>
   );
@@ -30,8 +29,10 @@ function LogoHome() {
       data-home={!!home}
       onClick={() => !home && navigate("/")}
     >
-      <Logo />
-      <span>Autui</span>
+      <XFlexBox>
+        <Logo />
+        <span>Autui</span>
+      </XFlexBox>
     </LogoHomeContainer>
   );
 }
@@ -40,15 +41,15 @@ const LogoHomeContainer = styled(Container)`
   font-size: 1.8rem;
   font-weight: bold;
   cursor: pointer;
-  & > svg {
+  & svg {
     width: 1em;
     height: 1em;
   }
-  & > span {
+  & span {
     margin: 0 4px;
   }
   &:not([data-home="true"]) {
-    & > svg {
+    & svg {
       color: ${(p) => p.theme.colors.primary};
     }
   }
@@ -60,8 +61,8 @@ interface NavItemProps {
 }
 
 function NavItem({ path, title }: NavItemProps): ReactElement {
-  const jump = useJump(path);
-  return <ListItem onClick={jump}>{title}</ListItem>;
+  const navigate = useNavigate();
+  return <ListItem onClick={() => navigate(path)}>{title}</ListItem>;
 }
 
 const ContentContainer = styled.div`
@@ -75,7 +76,7 @@ const ContentContainer = styled.div`
   height: 48px;
   &[data-home="true"] {
     max-width: 1000px;
-    color: ${(p) => p.theme.colors.textSecondary};
+    color: ${(p) => p.theme.colors.onPrimary};
 
     @media screen and (min-width: 1600px) {
       max-width: 1200px;

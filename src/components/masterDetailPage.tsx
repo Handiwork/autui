@@ -1,18 +1,13 @@
+import { useRelativePrefixMatch } from "@doc/hooks";
 import { AbsoluteLayout, List, ListItem } from "autui";
 import { createElement, ReactElement, useState } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useMatch,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IRoute } from "../data/IRoute";
 
 const NavItem = ({ it }: { it: IRoute }) => {
   const navigate = useNavigate();
-  const match = useMatch({ path: it.path, end: false });
+  const match = useRelativePrefixMatch(it.path);
   return (
     <ListItem onClick={() => navigate(it.path)} active={!!match}>
       {it.title}

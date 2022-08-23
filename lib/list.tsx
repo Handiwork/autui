@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { floatEffect } from "./effects";
-import { Container } from "./layout";
 
 export const List = styled.div`
   padding: ${(p) => p.theme.spacing.containerPadding};
@@ -13,7 +12,7 @@ interface ListItemProps {
 
 const listItemActive = css`
   background-color: ${(p) => p.theme.colors.primary};
-  color: ${(p) => p.theme.colors.textSecondary};
+  color: ${(p) => p.theme.colors.onPrimary};
   ${floatEffect}
 `;
 
@@ -25,7 +24,7 @@ const listItemHover = css`
   }
 `;
 
-export const ListItem = styled(Container)<ListItemProps>`
+export const ListItem = styled.div<ListItemProps>`
   border-radius: ${(p) => p.theme.borderRadius};
   padding: ${(p) => p.theme.spacing.containerPadding};
   margin: 0;

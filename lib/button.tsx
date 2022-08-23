@@ -68,7 +68,7 @@ export const ColorFlatButton = styled(FlatButton)`
 
 export const InversedFlatButton = styled(FlatButton)`
   background: ${({ theme }) => theme.colors.primary};
-  color: ${(props) => props.theme.colors.textSecondary};
+  color: ${(props) => props.theme.colors.onPrimary};
 `;
 
 export const PureButton = styled.button`
@@ -82,5 +82,5 @@ export const ColorPureButton = styled(PureButton)`
 `;
 
 export const InverseColorPureButton = styled(PureButton)`
-  color: ${(props) => props.theme.colors.textSecondary};
+  color: ${(props) => props.theme.colors.onPrimary};
 `;

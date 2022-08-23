@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import styled, { css } from "styled-components";
 
 const sliderThumbStyle = css`
@@ -29,9 +28,7 @@ const inputBaseStyle = css`
     height: ${(p) => p.theme.spacing.containerPadding};
     outline: none;
     overflow: hidden;
-    &::-webkit-slider-thumb {
-      ${sliderThumbStyle}
-    }
+    &::-webkit-slider-thumb,
     &::-moz-range-thumb {
       ${sliderThumbStyle}
     }
@@ -44,9 +41,7 @@ const inputBaseStyle = css`
     height: 0.8rem;
     width: 4rem;
     border: none;
-    &::-moz-color-swatch {
-      ${colorSwatchStyle}
-    }
+    &::-moz-color-swatch,
     &::-webkit-color-swatch {
       ${colorSwatchStyle}
     }
@@ -73,48 +68,4 @@ export const UnderlinedInput = styled.input`
   }
   border-radius: 0;
   ${inputBaseStyle}
-`;
-
-interface DataBinder<T> {
-  value: T;
-  onInput: React.FormEventHandler<HTMLInputElement> | undefined;
-}
-
-type DataBinders<T> = { [k in keyof T]: DataBinder<T[k]> };
-
-export function useForm<T>(init: T): [T, DataBinders<T>] {
-  const [state, setState] = useState(init);
-  const binders: DataBinders<T> = useMemo(() => {
-    return new Proxy<DataBinders<T>>({} as any, {
-      get(_, p) {
-        return {
-          value: (state as any)[p],
-          onChange: (e: any) =>
-            setState((s) => ({ ...s, [p]: e.target.value })),
-        };
-      },
-    });
-  }, [state, setState]);
-  return [state, binders];
-}
-
-const textFieldBase = css`
-  padding: 8px;
-  border-radius: 4px;
-  /* border: solid 1px ${({ theme }) => theme.colors.primary}; */
-  border: none;
-  box-sizing: border-box;
-  background: transparent;
-`;
-
-export const TextField = styled.input.attrs(() => ({ type: "text" }))`
-  ${textFieldBase}
-`;
-
-export const PasswordField = styled.input.attrs(() => ({ type: "password" }))`
-  ${textFieldBase}
-`;
-
-export const PhoneField = styled.input.attrs(() => ({ type: "tel" }))`
-  ${textFieldBase}
 `;

@@ -6,5 +6,5 @@ title: Quick Start
 
 ## Install
 ```
-pnpm install autui
+npm install autui
 ```

@@ -1,4 +1,11 @@
-import * as Color from "color";
+import {
+  adjustHue,
+  complement,
+  darken,
+  lighten,
+  readableColor,
+  transparentize,
+} from "polished";
 import {
   createContext,
   Dispatch,
@@ -14,14 +21,16 @@ export interface AutuiTheme {
   borderRadius: string;
   colors: {
     primary: string;
+    onPrimary: string;
     secondary: string;
+    onSecondary: string;
+    surface: string;
+    onSurface: string;
     accent: string;
     lightPrimary: string;
-    darkenPrimary: string;
+    darkPrimary: string;
     highlight: string;
     hoverLayer: string;
-    textPrimary: string;
-    textSecondary: string;
   };
   spacing: {
     containerMargin: string;
@@ -46,32 +55,36 @@ declare module "styled-components" {
   }
 }
 
-export function createColors(primaryColor: string): AutuiTheme["colors"] {
-  const primary = Color(primaryColor);
-  const seconday = primary.hue(primary.hue() + 60);
-  const accent = primary.hue(primary.hue() + 180);
+export function createColors(primary: string): AutuiTheme["colors"] {
+  const onPrimary = readableColor(primary);
+  const secondary = adjustHue(60, primary);
+  const onSecondary = readableColor(secondary);
+  const surface = "white";
+  const onSurface = readableColor(surface);
+  const accent = complement(primary);
 
-  const highlight = primary.lightness(primary.lightness() * 1.2);
-  const textPrimary = Color("black");
-  const lightPrimary = primary.lighten(0.5);
-  const darkenPrimary = primary.darken(0.2);
-  const hoverLayer = primary.lighten(0.6).alpha(0.15);
-  const textSecondary = primary.isDark() ? Color("white") : Color("black");
+  const highlight = lighten(0.2, primary);
+  const lightPrimary = lighten(0.2, primary);
+  const darkPrimary = darken(0.2, primary);
+  const hoverLayer = transparentize(0.85)(lighten(0.6)(primary));
   return {
-    primary: primaryColor,
-    secondary: seconday.toString(),
-    accent: accent.toString(),
-    lightPrimary: lightPrimary.toString(),
-    darkenPrimary: darkenPrimary.toString(),
-    hoverLayer: hoverLayer.toString(),
-    highlight: highlight.toString(),
-    textPrimary: textPrimary.toString(),
-    textSecondary: textSecondary.toString(),
+    primary,
+    onPrimary,
+    secondary,
+    onSecondary,
+    surface,
+    onSurface,
+    accent,
+    lightPrimary,
+    darkPrimary,
+    hoverLayer,
+    highlight,
   };
 }
 
 export function createTheme(): AutuiTheme {
-  const colors = createColors("#2196F3");
+  // const colors = createColors("#2196F3");
+  const colors = createColors("#3e689b");
   return {
     colors,
     borderRadius: "4px",

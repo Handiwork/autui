@@ -1,7 +1,10 @@
+import { normalize } from "polished";
 import { createGlobalStyle } from "styled-components";
 import { floatEffect } from "./effects";
 
 export const Normalize = createGlobalStyle`
+
+${normalize()}
 
 html{
   font-size: ${(p) => p.theme.fontSizes.root};
@@ -15,6 +18,12 @@ html,body{
   margin: 0;
   padding: 0;
 }
+
+::selection{
+  color: ${(p) => p.theme.colors.onPrimary};
+  background-color: ${(p) => p.theme.colors.lightPrimary};
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
