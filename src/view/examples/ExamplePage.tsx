@@ -25,12 +25,14 @@ export default function ExamplePageWrapper(props: ExamplePageProps) {
 }
 
 const ExampleListWrapper = styled(Container)`
-  display: grid;
-  @media (min-width: 1200px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 1800px) {
-    grid-template-columns: repeat(3, 1fr);
+  & > * {
+    float: left;
+    @media (min-width: 1200px) {
+      width: 50%;
+    }
+    @media (min-width: 1800px) {
+      width: 33.33333%;
+    }
   }
 `;
 

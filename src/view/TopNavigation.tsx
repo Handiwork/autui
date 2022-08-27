@@ -1,5 +1,6 @@
-import { Container, floatEffect, ListItem, XFlexBox } from "autui";
+import { Container, floatEffect, ListItem, PureButton, XFlexBox } from "autui";
 import { ReactElement, ReactNode } from "react";
+import { FaGithub } from "react-icons/fa";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../components/Logo";
@@ -11,10 +12,17 @@ export default function TopNavigation(): ReactElement {
     <BarContainer>
       <ContentContainer data-home={!!home}>
         <LogoHome />
-        <XFlexBox style={{ display: "flex", margin: "0 8px" }}>
+        <XFlexBox style={{ margin: "0 8px" }}>
           {routes.map((it) => (
             <NavItem key={it.path} path={it.path} title={it.title} />
           ))}
+          <PureButton
+            onClick={() => {
+              window.open("https://github.com/Handiwork/autui", "blank");
+            }}
+          >
+            <FaGithub />
+          </PureButton>
         </XFlexBox>
       </ContentContainer>
     </BarContainer>

@@ -7,6 +7,6 @@ export const hoverHighlight = css`
 `;
 
 export const floatEffect = css`
-  box-shadow: 2px 2px 4px 1px rgba(0.2, 0.2, 0.2, 0.2);
+  box-shadow: 1px 2px 8px 1px rgba(0.2, 0.2, 0.2, 0.2);
   transition: all 0.15s ease-in-out;
 `;

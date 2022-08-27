@@ -24,21 +24,6 @@ const routes: IRoute[] = [
     }),
   },
   {
-    title: "Compositions",
-    path: "compositions",
-    component: lazyExamplePage({
-      title: "Compositions",
-      sections: [
-        {
-          component: () => import("./compositions/BasicCompositions").then(de),
-          code: () => import("./compositions/BasicCompositions?raw").then(de),
-          description: () =>
-            import("./compositions/BasicCompositions.txt?raw").then(de),
-        },
-      ],
-    }),
-  },
-  {
     title: "Images",
     path: "images",
     component: lazyExamplePage({
@@ -84,6 +69,31 @@ const routes: IRoute[] = [
           code: () => import("./layouts/AbsoluteLayouts?raw").then(de),
           description: () =>
             import("./layouts/AbsoluteLayouts.txt?raw").then(de),
+        },
+        {
+          component: () => import("./layouts/Container").then(de),
+          code: () => import("./layouts/Container?raw").then(de),
+          description: () => import("./layouts/Container.md?raw").then(de),
+        },
+        {
+          component: () => import("./layouts/Dividers").then(de),
+          code: () => import("./layouts/Dividers?raw").then(de),
+          description: () => import("./layouts/Dividers.md?raw").then(de),
+        },
+      ],
+    }),
+  },
+  {
+    title: "Typography",
+    path: "typography",
+    component: lazyExamplePage({
+      title: "Typography",
+      sections: [
+        {
+          component: () => import("./typography/BasicCompositions").then(de),
+          code: () => import("./typography/BasicCompositions?raw").then(de),
+          description: () =>
+            import("./typography/BasicCompositions.txt?raw").then(de),
         },
       ],
     }),

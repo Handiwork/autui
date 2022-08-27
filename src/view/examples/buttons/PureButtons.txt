@@ -1,1 +1,2 @@
-Pure Buttons.
+#### Pure Buttons
+Pure buttons have no background.

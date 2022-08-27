@@ -1,1 +1,2 @@
-Fixed Ratio Images
+#### Fixed Ratio Image
+This component receives a property named `ratio`, which represents `height/width`.

@@ -1,11 +1,16 @@
-import { ReactElement } from "react";
-import Markdown from "markdown-to-jsx";
 import { H1, H2, H3, H4, H5, H6 } from "autui";
+import Markdown from "markdown-to-jsx";
+import { ReactElement } from "react";
+import styled from "styled-components";
 import CodeViewer from "./CodeViewer";
 
 interface Props {
   children: string;
 }
+
+const PrimaryCode = styled.code`
+  color: ${(p) => p.theme.colors.primary};
+`;
 
 function Code({
   className,
@@ -15,7 +20,7 @@ function Code({
   children: string;
 }) {
   const language = className?.replace("lang-", "");
-  if (!language) return <code>{children}</code>;
+  if (!language) return <PrimaryCode>{children}</PrimaryCode>;
   return (
     <CodeViewer language={language as "tsx" | "typescript" | "bash"}>
       {children}

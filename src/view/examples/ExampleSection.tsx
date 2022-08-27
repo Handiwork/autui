@@ -1,7 +1,13 @@
 import CodeViewer from "@doc/components/CodeViewer";
 import MarkdownViewer from "@doc/components/MarkdownViewer";
 import loadable from "@loadable/component";
-import { Card, ColorFlatButton, Expandable, VerticalDivider } from "autui";
+import {
+  Card,
+  ColorFlatButton,
+  Expandable,
+  VerticalDivider,
+  XFlexBox,
+} from "autui";
 import { ComponentType, useCallback, useState } from "react";
 import { FaChevronUp, FaCode } from "react-icons/fa";
 import styled from "styled-components";
@@ -24,17 +30,22 @@ export default function ExampleSection(props: ExampleSectionProps) {
         <Cmp />
         <VerticalDivider />
         <MarkdownViewer>{description}</MarkdownViewer>
-        <ColorFlatButton onClick={toggleCode}>
-          <FaCode />
-          <span>Code</span>
-        </ColorFlatButton>
+        {description.length > 0 && <VerticalDivider />}
+        <XFlexBox style={{ justifyContent: "end" }}>
+          <ColorFlatButton onClick={toggleCode}>
+            <FaCode />
+            <span>Code</span>
+          </ColorFlatButton>
+        </XFlexBox>
         <Expandable expanded={currentTab === "code"}>
           <VerticalDivider />
           <CodeViewer language="tsx">{code}</CodeViewer>
-          <ColorFlatButton onClick={toggleCode}>
-            <FaChevronUp />
-            <span>Collapse</span>
-          </ColorFlatButton>
+          <XFlexBox style={{ justifyContent: "end" }}>
+            <ColorFlatButton onClick={toggleCode}>
+              <FaChevronUp />
+              <span>Collapse</span>
+            </ColorFlatButton>
+          </XFlexBox>
         </Expandable>
       </Card>
     </ExampleContainer>
@@ -43,7 +54,6 @@ export default function ExampleSection(props: ExampleSectionProps) {
 
 const ExampleContainer = styled.div`
   width: 100%;
-  transition: height 0.2s ease-in;
 
   & ${ColorFlatButton} {
     display: inline-flex;
