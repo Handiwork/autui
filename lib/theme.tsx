@@ -110,9 +110,9 @@ interface AutuiThemeProviderProps {
   normalize?: boolean;
 }
 
-const AutuiThemeContext = createContext<Dispatch<SetStateAction<AutuiTheme>>>(
-  () => {}
-);
+const AutuiThemeContext = createContext<
+  Dispatch<SetStateAction<AutuiTheme>> | undefined
+>(undefined);
 
 export function AutuiThemeProvider(props: AutuiThemeProviderProps) {
   const [theme, setTheme] = useState(props.initTheme);
@@ -131,5 +131,10 @@ export function useTheme() {
 }
 
 export function useThemeUpdater() {
-  return useContext(AutuiThemeContext);
+  const updater = useContext(AutuiThemeContext);
+  if (!updater)
+    throw new Error(
+      `${useThemeUpdater.name} should be called within ${AutuiThemeProvider.name}`
+    );
+  return updater;
 }
