@@ -44,19 +44,29 @@ export default class VirtualWindowManger {
     content: ReactNode,
     options?: WindowInit,
     ...args: A
-  ) {
-    return new Promise<R>((resolve, reject) => {
-      const id = generateId();
-      this.#promiseHandlers.set(id, { args, resolve, reject });
-      this.#state.set(id, {
-        ...WINDOW_STATE_DEFAULTS,
-        ...(options ?? {}),
-        id,
-        content,
-        z: this.#state.size + 1,
-      });
-      this.notifyListeners();
+  ): CreateResult<R> {
+    const id = generateId();
+    this.#state.set(id, {
+      ...WINDOW_STATE_DEFAULTS,
+      ...(options ?? {}),
+      id,
+      content,
+      z: this.#state.size + 1,
     });
+    const result = new Promise<R>((resolve, reject) => {
+      this.#promiseHandlers.set(id, { args, resolve, reject });
+    });
+    this.notifyListeners();
+    return { id, result };
+  }
+
+  /**
+   * Get target window state.
+   * @param id Window ID
+   * @returns WindowState
+   */
+  query(id: string) {
+    return this.#state.get(id);
   }
 
   /**
@@ -85,6 +95,7 @@ export default class VirtualWindowManger {
       if (error) handler.reject(error);
       else handler.resolve(data);
     }
+    this.notifyListeners();
   }
 
   private notifyListeners() {
@@ -108,6 +119,14 @@ export default class VirtualWindowManger {
     return () => {
       this.#listeners = this.#listeners.filter((l) => l !== listener);
     };
+  }
+
+  moveTo(id: string, x: number, y: number) {
+    this.update(id, (s) => ({
+      ...s,
+      x,
+      y,
+    }));
   }
 
   /**
@@ -155,6 +174,11 @@ export default class VirtualWindowManger {
     });
     this.notifyListeners();
   }
+}
+
+interface CreateResult<T> {
+  id: string;
+  result: Promise<T>;
 }
 
 interface PromiseHandler {

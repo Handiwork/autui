@@ -13,25 +13,46 @@ test("Default contructor should work", () => {
 test("subscribe function should return an unsubscribe function", () => {
   const mockCallback = jest.fn();
   const unsubscribe = manager.subscribe(mockCallback);
-  manager.create(undefined);
+  const { id } = manager.create(undefined);
   expect(mockCallback).toBeCalled();
   expect(unsubscribe).toBeInstanceOf(Function);
   unsubscribe();
-  manager.close(manager.getSnapshot()[0].id);
+  manager.close(id);
   expect(mockCallback).toBeCalledTimes(1);
 });
 
-describe("promise functions", () => {
+test("create window should return id and promise", async () => {
+  const r = manager.create(undefined);
+  expect(typeof r.id).toBe("string");
+  manager.close(r.id);
+  await expect(r.result).resolves.toBeUndefined();
+});
+
+describe("query state", () => {
+  test("query with id of existing window should return state", () => {
+    const w = manager.create(undefined);
+    const state = manager.query(w.id);
+    expect(state).toBeTruthy();
+    manager.close(w.id);
+  });
+
+  test("query with id of nonexisting window should return undefined", () => {
+    const state = manager.query("-1");
+    expect(state).toBeUndefined();
+  });
+});
+
+describe("conditions of close", () => {
   test("close with data should resolve the promise", async () => {
-    const p = manager.create(undefined);
-    manager.close(manager.getSnapshot()[0].id, "something");
-    await expect(p).resolves.toBe("something");
+    const { id, result } = manager.create(undefined);
+    manager.close(id, "something");
+    await expect(result).resolves.toBe("something");
   });
 
   test("close with err should reject the promise", async () => {
-    const p = manager.create(undefined);
-    manager.close(manager.getSnapshot()[0].id, undefined, "some reason");
-    await expect(p).rejects.toBe("some reason");
+    const { id, result } = manager.create(undefined);
+    manager.close(id, undefined, "some reason");
+    await expect(result).rejects.toBe("some reason");
   });
 });
 
@@ -41,8 +62,8 @@ test("bad listener should not break the manager", () => {
   });
   let result: string;
   try {
-    manager.create(undefined);
-    manager.close(manager.getSnapshot()[0].id);
+    const { id } = manager.create(undefined);
+    manager.close(id);
     result = "ok";
   } catch (e) {
     result = "failed";
@@ -57,8 +78,7 @@ test("delta X and delta Y should be counted accumulately", () => {
     const state = manager.getSnapshot()[0];
     notified.push([state.x, state.y]);
   });
-  manager.create(undefined);
-  const id = manager.getSnapshot()[0].id;
+  const { id } = manager.create(undefined);
   for (let i = 0; i < 10; i += 1) {
     const deltaX = Math.floor(Math.random() * 100);
     const deltaY = Math.floor(Math.random() * 100);
@@ -85,8 +105,7 @@ test("width and height should be updated independently", () => {
     const state = manager.getSnapshot()[0];
     notified.push([state.width, state.height]);
   });
-  manager.create(undefined);
-  const id = manager.getSnapshot()[0].id;
+  const { id } = manager.create(undefined);
   for (let i = 0; i < 10; i += 1) {
     const width = Math.floor(Math.random() * 100);
     const height = Math.floor(Math.random() * 100);

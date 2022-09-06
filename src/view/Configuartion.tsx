@@ -2,6 +2,7 @@ import {
   AbsoluteLayout,
   Container,
   createColors,
+  FlatButton,
   H2,
   InversedFlatButton,
   OutlinedInput,
@@ -9,9 +10,11 @@ import {
   VerticalDivider,
   XFlexBox,
 } from "autui";
+import { produce } from "immer";
 import { useForm } from "react-hook-form";
 import styled, { useTheme } from "styled-components";
-import { produce } from "immer";
+import DraggableWindow from "../../lib/virtual-screen/DraggableWindow";
+import { useScreen } from "../../lib/virtual-screen/VirtualScreen";
 
 export default function Configuartion() {
   const theme = useTheme();
@@ -56,6 +59,7 @@ export default function Configuartion() {
         </InversedFlatButton>
       </ConfigSection>
       <VerticalDivider />
+      <TestSection />
     </AbsoluteLayout>
   );
 }
@@ -65,3 +69,20 @@ const ConfigSection = styled(Container)`
     display: block;
   }
 `;
+
+function TestSection() {
+  const { manager } = useScreen();
+  return (
+    <FlatButton
+      onClick={() =>
+        manager.create(
+          <DraggableWindow>
+            <h1>Hello world</h1>
+          </DraggableWindow>
+        )
+      }
+    >
+      open window
+    </FlatButton>
+  );
+}
