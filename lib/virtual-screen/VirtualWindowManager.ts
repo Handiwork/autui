@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { generateId } from "./utils";
+import { coerceBetween, generateId } from "./utils";
 
 /**
  * A Manager for virtual windows.
@@ -18,16 +18,23 @@ export default class VirtualWindowManger {
   /**
    * Windows' states.
    */
-  #state = new Map<string, WindowState>();
+  #windowStates = new Map<string, WindowState>();
 
   /**
    * Cached snapshot, to maintain value consistency.
    */
   #snapshot: WindowState[] = [];
 
+  screenRef: { current: HTMLElement | null } = { current: null };
+
+  get screenSize() {
+    const ele = this.screenRef.current;
+    return { width: ele?.offsetWidth ?? 0, height: ele?.offsetHeight ?? 0 };
+  }
+
   /**
-   * Return windows's states.
-   * @returns Windows's states.
+   * Return windows' states.
+   * @returns Windows' states.
    */
   getSnapshot() {
     return this.#snapshot;
@@ -46,12 +53,19 @@ export default class VirtualWindowManger {
     ...args: A
   ): CreateResult<R> {
     const id = generateId();
-    this.#state.set(id, {
+
+    const { width, height, ...rest } = {
       ...WINDOW_STATE_DEFAULTS,
       ...(options ?? {}),
+    };
+    const x = options?.x ?? (this.screenSize.width - width) / 2;
+    const y = options?.y ?? (this.screenSize.height - height) / 2;
+    this.#windowStates.set(id, {
       id,
       content,
-      z: this.#state.size + 1,
+      ...rest,
+      ...this.#computeContrainedLocation(x, y, x + width, y + height),
+      z: this.#windowStates.size + 1,
     });
     const result = new Promise<R>((resolve, reject) => {
       this.#promiseHandlers.set(id, { args, resolve, reject });
@@ -66,7 +80,7 @@ export default class VirtualWindowManger {
    * @returns WindowState
    */
   query(id: string) {
-    return this.#state.get(id);
+    return this.#windowStates.get(id);
   }
 
   /**
@@ -75,9 +89,9 @@ export default class VirtualWindowManger {
    * @param block Updater. Create new state from the old one.
    */
   update(id: string, block: (o: WindowState) => WindowState) {
-    const state = this.#state.get(id);
+    const state = this.#windowStates.get(id);
     if (!state) return;
-    this.#state.set(id, block(state));
+    this.#windowStates.set(id, block(state));
     this.notifyListeners();
   }
 
@@ -88,7 +102,7 @@ export default class VirtualWindowManger {
    * @param error Error used to reject.
    */
   close(id: string, data?: any, error?: any) {
-    this.#state.delete(id);
+    this.#windowStates.delete(id);
     const handler = this.#promiseHandlers.get(id);
     if (handler) {
       this.#promiseHandlers.delete(id);
@@ -99,7 +113,7 @@ export default class VirtualWindowManger {
   }
 
   private notifyListeners() {
-    this.#snapshot = Array.from(this.#state.values());
+    this.#snapshot = Array.from(this.#windowStates.values());
     this.#listeners.forEach((l) => {
       try {
         l();
@@ -121,11 +135,26 @@ export default class VirtualWindowManger {
     };
   }
 
-  moveTo(id: string, x: number, y: number) {
+  #computeContrainedLocation(x0: number, y0: number, x1: number, y1: number) {
+    const { width, height } = this.screenSize;
+    return {
+      x0: Math.max(0, x0),
+      y0: Math.max(0, y0),
+      x1: Math.min(width, x1),
+      y1: Math.min(height, y1),
+    };
+  }
+
+  /**
+   * Update target window position.
+   * @param id Target window id.
+   * @param x0 Target X.
+   * @param y0 Target Y.
+   */
+  locate(id: string, x0: number, y0: number, x1: number, y1: number) {
     this.update(id, (s) => ({
       ...s,
-      x,
-      y,
+      ...this.#computeContrainedLocation(x0, y0, x1, y1),
     }));
   }
 
@@ -135,12 +164,20 @@ export default class VirtualWindowManger {
    * @param deltaX Differential X.
    * @param deltaY Differential Y.
    */
-  move(id: string, deltaX: number, deltaY: number) {
-    this.update(id, (s) => ({
-      ...s,
-      x: s.x + deltaX,
-      y: s.y + deltaY,
-    }));
+  move(id: string, deltaX = 0, deltaY = 0) {
+    this.update(id, (s) => {
+      const { x0, y0, x1, y1 } = s;
+      const { width, height } = this.screenSize;
+      const consumedX = coerceBetween(deltaX, -x0, width - x1);
+      const consumedY = coerceBetween(deltaY, -y0, height - y1);
+      return {
+        ...s,
+        x0: s.x0 + consumedX,
+        y0: s.y0 + consumedY,
+        x1: s.x1 + consumedX,
+        y1: s.y1 + consumedY,
+      };
+    });
   }
 
   /**
@@ -149,11 +186,19 @@ export default class VirtualWindowManger {
    * @param width Target width.
    * @param height Target height.
    */
-  resize(id: string, width: number, height: number) {
+  resize(
+    id: string,
+    delta: { dx0: number; dy0: number; dx1: number; dy1: number }
+  ) {
+    const { dx0, dy0, dx1, dy1 } = delta;
     this.update(id, (s) => ({
       ...s,
-      width,
-      height,
+      ...this.#computeContrainedLocation(
+        s.x0 + dx0,
+        s.y0 + dy0,
+        s.x1 + dx1,
+        s.y1 + dy1
+      ),
     }));
   }
 
@@ -162,14 +207,14 @@ export default class VirtualWindowManger {
    * @param id Window ID.
    */
   focus(id: string) {
-    const target = this.#state.get(id);
+    const target = this.#windowStates.get(id);
     if (!target) return;
     const targetZ = target.z;
-    this.#state.forEach((v, k) => {
+    this.#windowStates.forEach((v, k) => {
       if (k === id) {
-        this.#state.set(k, { ...v, z: this.#state.size });
+        this.#windowStates.set(k, { ...v, z: this.#windowStates.size });
       } else if (v.z > targetZ) {
-        this.#state.set(k, { ...v, z: v.z - 1 });
+        this.#windowStates.set(k, { ...v, z: v.z - 1 });
       }
     });
     this.notifyListeners();
@@ -187,9 +232,29 @@ interface PromiseHandler {
   reject: Function1<any, any>;
 }
 
-type PartialOptions = "mode" | "fullscreen" | "x" | "y" | "width" | "height";
-
-type WindowInit = Partial<Pick<WindowState, PartialOptions>>;
+type WindowInit = {
+  mode: "NORMAL" | "MINIMIZED" | "MAXIMIZED";
+  /**
+   * Whether in fullscreen mode.
+   */
+  fullscreen: boolean;
+  /**
+   * X offset to left top.
+   */
+  x?: number;
+  /**
+   * Y offset to left top.
+   */
+  y?: number;
+  /**
+   * Widnow width, in pixel.
+   */
+  width: number;
+  /**
+   * Window height, in pixcel.
+   */
+  height: number;
+};
 
 type Function1<A, R> = (a: A) => R;
 
@@ -205,36 +270,34 @@ export interface WindowState {
    */
   fullscreen: boolean;
   /**
-   * X offset to left top.
+   * Left X.
    */
-  x: number;
+  x0: number;
   /**
-   * Y offset to left top.
+   * Top Y.
    */
-  y: number;
+  y0: number;
+  /**
+   * Right X.
+   */
+  x1: number;
+  /**
+   * Bottom Y.
+   */
+  y1: number;
   /**
    * Z Index, higher the value is, more near the window is to the user, starting from 1.
    */
   z: number;
-  /**
-   * Widnow width, in pixel.
-   */
-  width: number;
-  /**
-   * Window height, in pixcel.
-   */
-  height: number;
   /**
    * Window Content.
    */
   content: ReactNode;
 }
 
-const WINDOW_STATE_DEFAULTS: Omit<WindowState, "id" | "z" | "content"> = {
+const WINDOW_STATE_DEFAULTS: WindowInit = {
   mode: "NORMAL",
   fullscreen: false,
-  x: 0,
-  y: 0,
   width: 800,
   height: 600,
 };

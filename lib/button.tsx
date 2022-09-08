@@ -51,6 +51,7 @@ const buttonBaseCss = css`
   outline: none;
   padding: 8px;
   background: transparent;
+  color: inherit;
   cursor: pointer;
   position: relative;
   overflow: hidden;

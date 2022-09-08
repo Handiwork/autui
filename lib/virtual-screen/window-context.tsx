@@ -16,7 +16,7 @@ type BindPicked<O, K extends keyof O> = {
 
 type WindowController = BindPicked<
   VirtualWindowManger,
-  "move" | "moveTo" | "close" | "resize" | "focus"
+  "move" | "locate" | "close" | "resize" | "focus"
 >;
 
 export type WindowContextValue = WindowState;
@@ -36,7 +36,7 @@ export function useWindowController(): WindowController {
   return useMemo(
     () => ({
       move: manager.move.bind(manager, state.id),
-      moveTo: manager.moveTo.bind(manager, state.id),
+      locate: manager.locate.bind(manager, state.id),
       resize: manager.resize.bind(manager, state.id),
       focus: manager.focus.bind(manager, state.id),
       close: manager.close.bind(manager, state.id),

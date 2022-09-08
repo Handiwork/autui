@@ -13,17 +13,16 @@ export interface DraggableWindowProps {
 }
 
 export default function DraggableWindow(props: DraggableWindowProps) {
-  const { x, y, z, width, height } = useWindow();
+  const { x0, y0, x1, y1, z } = useWindow();
+  const width = x1 - x0;
+  const height = y1 - y0;
   const controller = useWindowController();
   const ref = useRef(null);
   return (
     <Draggable
-      defaultPosition={{ x, y }}
-      onStart={(_, { x: nx, y: ny }) => {
-        controller.moveTo(nx, ny);
-      }}
-      onStop={(_, { x: nx, y: ny }) => {
-        controller.moveTo(nx, ny);
+      position={{ x: x0, y: y0 }}
+      onDrag={(_, { deltaX, deltaY }) => {
+        controller.move(deltaX, deltaY);
       }}
       nodeRef={ref}
       handle={`[data-draggable="true"`}
@@ -60,6 +59,7 @@ const DraggableWindowWrapper = styled.div<{
 
   width: ${(p) => p.width}px;
   height: ${(p) => p.height}px;
+  box-sizing: border-box;
   z-index: ${(p) => p.z};
 
   display: flex;

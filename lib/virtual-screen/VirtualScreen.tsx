@@ -1,4 +1,12 @@
-import { createContext, ReactNode, useContext, useMemo, useRef } from "react";
+import {
+  createContext,
+  ReactNode,
+  RefObject,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { useSyncExternalStore } from "use-sync-external-store/shim";
 import VirtualWindowManger from "./VirtualWindowManager";
 import { WindowContext } from "./window-context";
@@ -62,4 +70,13 @@ export function useScreen() {
 
 export function useWindowManager() {
   return useScreen().manager;
+}
+
+export function ScreenRefNotifier(props: { nodeRef: RefObject<HTMLElement> }) {
+  const manager = useWindowManager();
+  const ref = props.nodeRef;
+  useEffect(() => {
+    manager.screenRef = ref;
+  }, [ref]);
+  return null;
 }
