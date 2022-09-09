@@ -138,10 +138,10 @@ export default class VirtualWindowManger {
   #computeContrainedLocation(x0: number, y0: number, x1: number, y1: number) {
     const { width, height } = this.screenSize;
     return {
-      x0: Math.max(0, x0),
-      y0: Math.max(0, y0),
-      x1: Math.min(width, x1),
-      y1: Math.min(height, y1),
+      x0: coerceBetween(x0, 0, x1),
+      y0: coerceBetween(y0, 0, y1),
+      x1: coerceBetween(x1, x0, width),
+      y1: coerceBetween(y1, y0, height),
     };
   }
 
@@ -166,10 +166,10 @@ export default class VirtualWindowManger {
    */
   move(id: string, deltaX = 0, deltaY = 0) {
     this.update(id, (s) => {
-      const { x0, y0, x1, y1 } = s;
+      const { x0, y0, x1 } = s;
       const { width, height } = this.screenSize;
-      const consumedX = coerceBetween(deltaX, -x0, width - x1);
-      const consumedY = coerceBetween(deltaY, -y0, height - y1);
+      const consumedX = coerceBetween(deltaX, -x1, width - x0);
+      const consumedY = coerceBetween(deltaY, -y0, height - y0);
       return {
         ...s,
         x0: s.x0 + consumedX,
@@ -183,14 +183,13 @@ export default class VirtualWindowManger {
   /**
    * Resize window to target size.
    * @param id Window ID.
-   * @param width Target width.
-   * @param height Target height.
+   * @param delta Size change, where (dx0,dy0) changes the top-left and (dx1,dy1) changes the bottom-right.
    */
   resize(
     id: string,
-    delta: { dx0: number; dy0: number; dx1: number; dy1: number }
+    delta: { dx0?: number; dy0?: number; dx1?: number; dy1?: number }
   ) {
-    const { dx0, dy0, dx1, dy1 } = delta;
+    const { dx0 = 0, dy0 = 0, dx1 = 0, dy1 = 0 } = delta;
     this.update(id, (s) => ({
       ...s,
       ...this.#computeContrainedLocation(

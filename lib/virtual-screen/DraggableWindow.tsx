@@ -1,8 +1,8 @@
-import { ReactNode, useRef } from "react";
-import Draggable from "react-draggable";
+import { ReactNode } from "react";
 import styled from "styled-components";
 import { PureButton } from "../button";
 import { floatEffect } from "../effects";
+import { useDraggingEffect } from "../hooks/drag";
 import { H5 } from "../html";
 import { VerticalDivider } from "../layout";
 import { useWindow, useWindowController } from "./window-context";
@@ -17,50 +17,31 @@ export default function DraggableWindow(props: DraggableWindowProps) {
   const width = x1 - x0;
   const height = y1 - y0;
   const controller = useWindowController();
-  const ref = useRef(null);
   return (
-    <Draggable
-      position={{ x: x0, y: y0 }}
-      onDrag={(_, { deltaX, deltaY }) => {
-        controller.move(deltaX, deltaY);
-      }}
-      nodeRef={ref}
-      handle={`[data-draggable="true"`}
+    <DraggableWindowWrapper
+      style={{ left: x0, top: y0, width, height, zIndex: z * 1000 }}
+      onMouseDownCapture={() => controller.focus()}
     >
-      <DraggableWindowWrapper
-        width={width}
-        height={height}
-        z={z * 1000}
-        ref={ref}
-        onMouseDownCapture={() => controller.focus()}
-      >
-        <TitleBar
-          title={props.title ?? "untitled"}
-          actions={
-            <PureButton onClick={() => controller.close()}>close</PureButton>
-          }
-        />
-        <VerticalDivider />
-        <div style={{ flex: "1 1 auto" }}>{props.children}</div>
-      </DraggableWindowWrapper>
-    </Draggable>
+      <TitleBar
+        title={props.title ?? "untitled"}
+        actions={
+          <PureButton onClick={() => controller.close()}>close</PureButton>
+        }
+      />
+      <VerticalDivider />
+      <div style={{ flex: "1 1 auto" }}>{props.children}</div>
+      <BottomRightResizeHandler thickness={8} />
+    </DraggableWindowWrapper>
   );
 }
 
-const DraggableWindowWrapper = styled.div<{
-  width: number;
-  height: number;
-  z: number;
-}>`
+const DraggableWindowWrapper = styled.div`
   ${floatEffect}
   background-color: ${(p) => p.theme.colors.surface};
   border-radius: ${(p) => p.theme.borderRadius};
   padding: ${(p) => p.theme.spacing.containerPadding};
 
-  width: ${(p) => p.width}px;
-  height: ${(p) => p.height}px;
   box-sizing: border-box;
-  z-index: ${(p) => p.z};
 
   display: flex;
   flex-direction: column;
@@ -69,10 +50,41 @@ const DraggableWindowWrapper = styled.div<{
 
 function TitleBar(props: { title: string; actions?: ReactNode }) {
   const { title, actions = [] } = props;
+  const controller = useWindowController();
+  const startDrag = useDraggingEffect((e) => {
+    controller.move(e.movementX, e.movementY);
+  });
+
   return (
-    <div style={{ display: "flex" }} data-draggable="true">
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      style={{ display: "flex", userSelect: "none" }}
+      onMouseDown={startDrag}
+    >
       <H5 style={{ flex: "1 1 auto" }}>{title}</H5>
       {actions}
     </div>
+  );
+}
+
+function BottomRightResizeHandler(props: { thickness: number }) {
+  const { thickness } = props;
+  const controller = useWindowController();
+  const startDrag = useDraggingEffect((e) => {
+    controller.resize({ dx1: e.movementX, dy1: e.movementY });
+  });
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      onMouseDown={startDrag}
+      style={{
+        position: "absolute",
+        top: "100%",
+        left: "100%",
+        width: thickness,
+        height: thickness,
+        cursor: "se-resize",
+      }}
+    />
   );
 }
