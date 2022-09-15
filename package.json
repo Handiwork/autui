@@ -13,7 +13,8 @@
     "lint:fix": "eslint --ext ts,tsx,js,jsx --fix .",
     "rollup:types": "api-extractor run",
     "index:examples": "node ./scripts/generate_example_indices.js && eslint --fix src/view/examples/routes.tsx",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "publish:local": "cd dist && npm publish --registry http://localhost:8081/repository/npm-hosted/"
   },
   "devDependencies": {
     "@loadable/component": "^5.15.0",
@@ -59,6 +60,8 @@
     "vite": "^3.0.9"
   },
   "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17",
     "styled-components": "^5.3.0"
   },
   "files": [

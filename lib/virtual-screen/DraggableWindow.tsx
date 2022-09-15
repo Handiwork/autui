@@ -5,6 +5,7 @@ import { floatEffect } from "../effects";
 import { useDraggingEffect } from "../hooks/drag";
 import { H5 } from "../html";
 import { VerticalDivider } from "../layout";
+import { useWindowManager } from "./VirtualScreen";
 import { useWindow, useWindowController } from "./window-context";
 
 export interface DraggableWindowProps {
@@ -13,19 +14,45 @@ export interface DraggableWindowProps {
 }
 
 export default function DraggableWindow(props: DraggableWindowProps) {
-  const { x0, y0, x1, y1, z } = useWindow();
+  const { x0, y0, x1, y1, z, mode } = useWindow();
   const width = x1 - x0;
   const height = y1 - y0;
   const controller = useWindowController();
+  const manager = useWindowManager();
+  const style =
+    mode === "MAXIMIZED"
+      ? {
+          left: 0,
+          top: 0,
+          ...manager.screenSize,
+        }
+      : {
+          left: x0,
+          top: y0,
+          width,
+          height,
+        };
   return (
     <DraggableWindowWrapper
-      style={{ left: x0, top: y0, width, height, zIndex: z * 1000 }}
+      style={{ ...style, zIndex: z * 1000 }}
       onMouseDownCapture={() => controller.focus()}
     >
       <TitleBar
         title={props.title ?? "untitled"}
         actions={
-          <PureButton onClick={() => controller.close()}>close</PureButton>
+          <>
+            <PureButton
+              onClick={() =>
+                controller.update((s) => ({
+                  ...s,
+                  mode: mode === "MAXIMIZED" ? "NORMAL" : "MAXIMIZED",
+                }))
+              }
+            >
+              {mode === "MAXIMIZED" ? "restore" : "maximize"}
+            </PureButton>
+            <PureButton onClick={() => controller.close()}>close</PureButton>
+          </>
         }
       />
       <VerticalDivider />

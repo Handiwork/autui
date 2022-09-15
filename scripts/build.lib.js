@@ -18,6 +18,10 @@ const umdFilePath = `./${generateFileName("umd")}`;
 const esFilePath = `./${generateFileName("es")}`;
 
 async function buildLib() {
+  const external = Object.keys({
+    ...packageInfo.peerDependencies,
+    ...packageInfo.dependencies,
+  });
   return vite.build({
     publicDir: false,
     build: {
@@ -30,11 +34,12 @@ async function buildLib() {
         fileName: generateFileName,
       },
       rollupOptions: {
-        external: Object.keys(packageInfo.peerDependencies),
+        external,
         output: {
           globals: {
             react: "React",
             "styled-components": "styled",
+            polished: "polished",
           },
         },
       },
@@ -69,6 +74,7 @@ async function writePackageInfo() {
       },
     },
     peerDependencies: packageInfo.peerDependencies,
+    dependencies: packageInfo.dependencies,
     files: [esFilePath, umdFilePath, typesRelativeDir],
   };
   fs.writeFileSync(
@@ -78,10 +84,19 @@ async function writePackageInfo() {
   );
 }
 
+async function writeIndexTyping() {
+  console.log("write index typing...");
+  const content = `export * from "./types"\n`;
+  fs.writeFileSync(path.resolve(outputDir, "index.d.ts"), content, {
+    encoding: "utf-8",
+  });
+}
+
 async function main() {
   await buildLib();
   await buildType();
   await writePackageInfo();
+  await writeIndexTyping();
   console.log("building finished");
 }
 

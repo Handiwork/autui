@@ -73,50 +73,32 @@ test("bad listener should not break the manager", () => {
 
 test("delta X and delta Y should be counted accumulately", () => {
   const notified: number[][] = [];
-  const origin: number[][] = [];
-  const unsubscribe = manager.subscribe(() => {
-    const state = manager.getSnapshot()[0];
-    notified.push([state.x, state.y]);
-  });
+  const delta: number[][] = [];
+  manager.screenRef = {
+    current: { offsetHeight: 10000, offsetWidth: 10000 } as any,
+  };
   const { id } = manager.create(undefined);
+  const unsubscribe = manager.subscribe(() => {
+    const { x0, y0, x1, y1 } = manager.query(id) ?? {
+      x0: 0,
+      y0: 0,
+      x1: 0,
+      y1: 0,
+    };
+    notified.push([x0, y0, x1, y1]);
+  });
   for (let i = 0; i < 10; i += 1) {
     const deltaX = Math.floor(Math.random() * 100);
     const deltaY = Math.floor(Math.random() * 100);
     manager.move(id, deltaX, deltaY);
-    origin.push([deltaX, deltaY]);
+    delta.push([deltaX, deltaY]);
   }
   manager.close(id);
   unsubscribe();
-  notified.shift(); // first call with intial value '0'
-  let sumX = 0;
-  let sumY = 0;
-  for (let i = 0; i < 10; i += 1) {
-    sumX += origin[i][0];
-    sumY += origin[i][1];
-    expect(notified[i][0]).toBe(sumX);
-    expect(notified[i][1]).toBe(sumY);
-  }
-});
-
-test("width and height should be updated independently", () => {
-  const notified: number[][] = [];
-  const origin: number[][] = [];
-  const unsubscribe = manager.subscribe(() => {
-    const state = manager.getSnapshot()[0];
-    notified.push([state.width, state.height]);
-  });
-  const { id } = manager.create(undefined);
-  for (let i = 0; i < 10; i += 1) {
-    const width = Math.floor(Math.random() * 100);
-    const height = Math.floor(Math.random() * 100);
-    manager.resize(id, width, height);
-    origin.push([width, height]);
-  }
-  manager.close(id);
-  unsubscribe();
-  notified.shift(); // first call with intial value '0'
-  for (let i = 0; i < 10; i += 1) {
-    expect(notified[i]).toEqual(origin[i]);
+  for (let i = 1; i < 10; i += 1) {
+    for (let j = 0; j < 4; j += 1) {
+      expect(notified[i][j] - notified[i - 1][j]).toBe(delta[i][j % 2]);
+    }
   }
 });
 
