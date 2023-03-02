@@ -1,0 +1,1 @@
+import{r as o,a as r,L as i,j as c,q as n}from"./index-c99e5ed0.js";const e=[];for(let t=0;t<50;t+=1)e.push(t);function m(){const[t,a]=o.useState(0);return r(i,{style:{height:420,overflow:"auto"},children:e.map(s=>c(n,{active:t===s,onClick:()=>a(s),children:["Random Item :",s]},s))})}export{m as default};

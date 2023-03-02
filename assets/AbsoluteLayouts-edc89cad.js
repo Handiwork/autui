@@ -1,0 +1,1 @@
+const t="#### Absolute Layout\n`AbsoluteLayout` is a `div` styled with `position: absolute`, and some position shortcuts\n(`top`, `right`, `bottom`, `left`, which are `0` by default) are added.\n";export{t as default};
