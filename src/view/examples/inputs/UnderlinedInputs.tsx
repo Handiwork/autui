@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { UnderlinedInput } from "autui";
+import styled from "styled-components";
 
 const Form = styled.div`
   & > label {
@@ -47,6 +47,14 @@ export default function UnderlinedInputs() {
       <label>
         <span>range</span>
         <UnderlinedInput type="range" />
+      </label>
+      <label>
+        <span>checked</span>
+        <UnderlinedInput type="checkbox" checked />
+      </label>
+      <label>
+        <span>unchecked</span>
+        <UnderlinedInput type="checkbox" />
       </label>
     </Form>
   );

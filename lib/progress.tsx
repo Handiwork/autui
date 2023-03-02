@@ -14,13 +14,17 @@ export function ProgressBar(props: ProgressBarProps) {
   const { style, className, progress, buffered, total, onChange } = props;
   const lProgress = total ? Math.min(100, (progress * 100) / total) : 0;
   const lBuffered = total ? Math.min(100, (buffered * 100) / total) : 0;
-  const lStyle: CSSProperties = { position: "relative", ...style };
+  const lStyle: CSSProperties = {
+    position: "relative",
+    minHeight: 4,
+    ...style,
+  };
   return (
     <Wrapper style={lStyle} className={className}>
       <Buffered style={{ position: "absolute", width: `${lBuffered}%` }} />
       <Expired style={{ position: "absolute", width: `${lProgress}%` }} />
       <InnerSlider
-        style={{ position: "absolute", width: `100%` }}
+        style={{ position: "absolute", width: `100%`, height: "100%" }}
         min="0"
         max={total}
         step="any"
@@ -32,14 +36,26 @@ export function ProgressBar(props: ProgressBarProps) {
 }
 
 const progressBase = css`
-  height: 4px;
+  height: 100%;
   left: 0;
   border-radius: 2px;
-  transition: transform 0.23s ease-in;
-  transform: translate3d(0, 0, 0);
-  /* &:hover{
-    transform: scale(1,1.5);
-  } */
+  transition: width 0.13s ease-out;
+`;
+
+const thumbStyle = css`
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  width: 6px;
+  height: 6px;
+  cursor: pointer;
+`;
+
+const trackStyle = css`
+  appearance: none;
+  color: transparent;
+  background: transparent;
+  cursor: pointer;
 `;
 
 const InnerSlider = styled.input.attrs(() => ({ type: "range" }))`
@@ -49,25 +65,24 @@ const InnerSlider = styled.input.attrs(() => ({ type: "range" }))`
   background: transparent;
   -webkit-appearance: none;
 
-  @mixin thumb {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    background: red;
-  }
-
   &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 6px;
-    height: 6px;
-    /* position: relative; */
+    ${thumbStyle}
   }
 
-  ::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    color: transparent;
-    background: transparent;
-    cursor: pointer;
+  &::-moz-range-thumb {
+    ${thumbStyle}
+  }
+
+  &::-webkit-slider-runnable-track {
+    ${trackStyle}
+  }
+
+  &::-moz-range-progress {
+    ${trackStyle}
+  }
+
+  &::-moz-range-track {
+    ${trackStyle}
   }
 `;
 
@@ -82,7 +97,7 @@ const Expired = styled.div`
 `;
 const Buffered = styled.div`
   ${progressBase}
-  background: #0001;
+  background: ${(p) => p.theme.colors.hoverLayer};
 `;
 
 const Wrapper = styled.div`

@@ -1,6 +1,5 @@
 import { normalize } from "polished";
 import { createGlobalStyle } from "styled-components";
-import { floatEffect } from "./effects";
 
 export const Normalize = createGlobalStyle`
 
@@ -19,27 +18,39 @@ html,body{
   padding: 0;
 }
 
-::selection{
-  color: ${(p) => p.theme.colors.onPrimary};
-  background-color: ${(p) => p.theme.colors.lightPrimary};
+*{
+  &::selection{
+    color: ${(p) => p.theme.colors.onPrimary};
+    background-color: ${(p) => p.theme.colors.lightPrimary};
+  }
+
+  &::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    appearance:none;
+    opacity: 0;
+    width: 4px;
+    border-radius: 4px;
+    background-color: transparent;
+  }
+
+  &:hover::-webkit-scrollbar-thumb{
+    background-color: ${(p) => p.theme.colors.lightPrimary};
+  }
+
+  &::-webkit-scrollbar-track{
+    appearance:none;
+    opacity: 0;
+    border-radius: 4px;
+    background-color: transparent;
+  }
+
+  &:hover::-webkit-scrollbar-track{
+    background-color: ${(p) => p.theme.colors.hoverLayer};
+  }
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb{
-  -webkit-appearance:none;
-  width: 4px;
-  border-radius: 4px;
-  background-color: ${(p) => p.theme.colors.lightPrimary};
-  ${floatEffect}
-}
-
-::-webkit-scrollbar-track{
-  -webkit-appearance:none;
-  background-color: ${(p) => p.theme.colors.hoverLayer};
-  border-radius: 4px;
-}
 `;

@@ -80,6 +80,25 @@ const routes: IRoute[] = [
           code: () => import("./layouts/Dividers?raw").then(de),
           description: () => import("./layouts/Dividers.md?raw").then(de),
         },
+        {
+          component: () => import("./layouts/Lists").then(de),
+          code: () => import("./layouts/Lists?raw").then(de),
+          description: () => import("./layouts/Lists.md?raw").then(de),
+        },
+      ],
+    }),
+  },
+  {
+    title: "Progress",
+    path: "progress",
+    component: lazyExamplePage({
+      title: "Progress",
+      sections: [
+        {
+          component: () => import("./progress/ProgressBar").then(de),
+          code: () => import("./progress/ProgressBar?raw").then(de),
+          description: () => import("./progress/ProgressBar.md?raw").then(de),
+        },
       ],
     }),
   },

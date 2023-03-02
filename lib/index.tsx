@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export * from "./button";
 export * from "./theme";
 export * from "./normalize";
@@ -10,3 +12,5 @@ export * from "./input";
 export * from "./menu";
 export * from "./effects";
 export * from "./images";
+export * from "./progress";
+export default styled;

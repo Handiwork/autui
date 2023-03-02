@@ -5,6 +5,7 @@ import {
   lighten,
   readableColor,
   transparentize,
+  mix,
 } from "polished";
 import {
   createContext,
@@ -27,6 +28,7 @@ export interface AutuiTheme {
     surface: string;
     onSurface: string;
     accent: string;
+    disable: string;
     lightPrimary: string;
     darkPrimary: string;
     highlight: string;
@@ -62,11 +64,12 @@ export function createColors(primary: string): AutuiTheme["colors"] {
   const surface = "white";
   const onSurface = readableColor(surface);
   const accent = complement(primary);
+  const disable = mix(0.5, "#7777", onSurface);
 
   const highlight = lighten(0.2, primary);
   const lightPrimary = lighten(0.2, primary);
   const darkPrimary = darken(0.2, primary);
-  const hoverLayer = transparentize(0.85)(lighten(0.6)(primary));
+  const hoverLayer = transparentize(0.85)(lightPrimary);
   return {
     primary,
     onPrimary,
@@ -75,6 +78,7 @@ export function createColors(primary: string): AutuiTheme["colors"] {
     surface,
     onSurface,
     accent,
+    disable,
     lightPrimary,
     darkPrimary,
     hoverLayer,

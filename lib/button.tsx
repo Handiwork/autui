@@ -63,6 +63,7 @@ export const FlatButton = styled.button`
   ${hoverEffect}
   ${rippleEffect}
 `;
+
 export const ColorFlatButton = styled(FlatButton)`
   color: ${(props) => props.theme.colors.primary};
 `;
@@ -70,6 +71,12 @@ export const ColorFlatButton = styled(FlatButton)`
 export const InversedFlatButton = styled(FlatButton)`
   background: ${({ theme }) => theme.colors.primary};
   color: ${(props) => props.theme.colors.onPrimary};
+`;
+
+export const DisabledFlatButton = styled.button`
+  ${buttonBaseCss}
+  cursor: auto;
+  color: ${(props) => props.theme.colors.disable};
 `;
 
 export const PureButton = styled.button`
@@ -84,4 +91,10 @@ export const ColorPureButton = styled(PureButton)`
 
 export const InverseColorPureButton = styled(PureButton)`
   color: ${(props) => props.theme.colors.onPrimary};
+`;
+
+export const DisabledPureButton = styled.button`
+  ${buttonBaseCss}
+  cursor: auto;
+  color: ${(props) => props.theme.colors.disable};
 `;

@@ -48,6 +48,14 @@ export default function OutlinedInputs() {
         <span>range</span>
         <OutlinedInput type="range" />
       </label>
+      <label>
+        <span>checked</span>
+        <OutlinedInput type="checkbox" checked />
+      </label>
+      <label>
+        <span>unchecked</span>
+        <OutlinedInput type="checkbox" />
+      </label>
     </Form>
   );
 }

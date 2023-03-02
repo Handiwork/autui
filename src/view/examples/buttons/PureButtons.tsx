@@ -1,4 +1,9 @@
-import { ColorPureButton, InverseColorPureButton, PureButton } from "autui";
+import {
+  ColorPureButton,
+  DisabledPureButton,
+  InverseColorPureButton,
+  PureButton,
+} from "autui";
 import { ReactElement } from "react";
 import { FaCodeBranch, FaShare } from "react-icons/fa";
 
@@ -31,6 +36,15 @@ export default function ContentButtons(): ReactElement {
           <FaCodeBranch />
         </InverseColorPureButton>
         <InverseColorPureButton>InverseColorPureButton</InverseColorPureButton>
+      </div>
+      <div>
+        <DisabledPureButton>
+          <FaShare />
+        </DisabledPureButton>
+        <DisabledPureButton>
+          <FaCodeBranch />
+        </DisabledPureButton>
+        <DisabledPureButton>ColorPureButton</DisabledPureButton>
       </div>
     </>
   );

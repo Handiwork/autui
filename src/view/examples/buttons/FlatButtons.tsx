@@ -1,4 +1,9 @@
-import { ColorFlatButton, FlatButton, InversedFlatButton } from "autui";
+import {
+  ColorFlatButton,
+  DisabledFlatButton,
+  FlatButton,
+  InversedFlatButton,
+} from "autui";
 import { ReactElement } from "react";
 import { FaShare } from "react-icons/fa";
 
@@ -25,6 +30,13 @@ export default function NormalButtons(): ReactElement {
         </InversedFlatButton>
 
         <InversedFlatButton>InversedFlatButton</InversedFlatButton>
+      </div>
+      <div>
+        <DisabledFlatButton>
+          <FaShare />
+        </DisabledFlatButton>
+
+        <DisabledFlatButton>InversedFlatButton</DisabledFlatButton>
       </div>
     </>
   );

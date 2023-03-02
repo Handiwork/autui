@@ -10,6 +10,7 @@ const outputDir = path.resolve(rootDir, "dist");
 const typesRelativeDir = "./types";
 
 const libName = "autui";
+const indexTypingFile = "index.d.ts";
 
 function generateFileName(format) {
   return `${libName}.${format}.js`;
@@ -65,7 +66,7 @@ async function writePackageInfo() {
     version: packageInfo.version,
     main: umdFilePath,
     module: esFilePath,
-    types: typesRelativeDir,
+    types: indexTypingFile,
     exports: {
       ".": {
         import: esFilePath,
@@ -75,7 +76,7 @@ async function writePackageInfo() {
     },
     peerDependencies: packageInfo.peerDependencies,
     dependencies: packageInfo.dependencies,
-    files: [esFilePath, umdFilePath, typesRelativeDir],
+    files: [esFilePath, umdFilePath, typesRelativeDir, indexTypingFile],
   };
   fs.writeFileSync(
     path.resolve(outputDir, "package.json"),
@@ -86,8 +87,8 @@ async function writePackageInfo() {
 
 async function writeIndexTyping() {
   console.log("write index typing...");
-  const content = `export * from "./types"\n`;
-  fs.writeFileSync(path.resolve(outputDir, "index.d.ts"), content, {
+  const content = `export * from "./types"\n import styled from "styled-components";\n export default styled;\n`;
+  fs.writeFileSync(path.resolve(outputDir, indexTypingFile), content, {
     encoding: "utf-8",
   });
 }
