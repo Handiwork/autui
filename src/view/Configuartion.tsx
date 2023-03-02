@@ -1,5 +1,6 @@
 import {
   AbsoluteLayout,
+  ColorPureButton,
   Container,
   createColors,
   FlatButton,
@@ -12,6 +13,11 @@ import {
 } from "autui";
 import { produce } from "immer";
 import { useForm } from "react-hook-form";
+import {
+  VscChromeClose,
+  VscChromeMaximize,
+  VscChromeRestore,
+} from "react-icons/vsc";
 import styled, { useTheme } from "styled-components";
 import DraggableWindow from "../../lib/virtual-screen/DraggableWindow";
 import { useScreen } from "../../lib/virtual-screen/VirtualScreen";
@@ -76,7 +82,24 @@ function TestSection() {
     <FlatButton
       onClick={() =>
         manager.create(
-          <DraggableWindow>
+          <DraggableWindow
+            title="Example Dialog"
+            closeController={
+              <ColorPureButton>
+                <VscChromeClose />
+              </ColorPureButton>
+            }
+            maximizeController={
+              <ColorPureButton>
+                <VscChromeMaximize />
+              </ColorPureButton>
+            }
+            restoreController={
+              <ColorPureButton>
+                <VscChromeRestore />
+              </ColorPureButton>
+            }
+          >
             <h1>Hello world</h1>
           </DraggableWindow>
         )

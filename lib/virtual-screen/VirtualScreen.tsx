@@ -6,8 +6,8 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useSyncExternalStore,
 } from "react";
-import { useSyncExternalStore } from "use-sync-external-store/shim";
 import VirtualWindowManger from "./VirtualWindowManager";
 import { WindowContext } from "./window-context";
 

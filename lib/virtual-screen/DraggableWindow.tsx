@@ -1,8 +1,9 @@
-import { ReactNode } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { PureButton } from "../button";
 import { floatEffect } from "../effects";
 import { useDraggingEffect } from "../hooks/drag";
+import { useStateDiff } from "../hooks/transition";
 import { H5 } from "../html";
 import { VerticalDivider } from "../layout";
 import { useWindowManager } from "./VirtualScreen";
@@ -11,20 +12,32 @@ import { useWindow, useWindowController } from "./window-context";
 export interface DraggableWindowProps {
   children: ReactNode;
   title?: string;
+  restoreController?: ReactElement;
+  maximizeController?: ReactElement;
+  closeController?: ReactElement;
 }
 
 export default function DraggableWindow(props: DraggableWindowProps) {
+  const {
+    title,
+    children,
+    restoreController = <PureButton>restore</PureButton>,
+    maximizeController = <PureButton>maximize</PureButton>,
+    closeController = <PureButton>Close</PureButton>,
+  } = props;
   const { x0, y0, x1, y1, z, mode } = useWindow();
   const width = x1 - x0;
   const height = y1 - y0;
   const controller = useWindowController();
   const manager = useWindowManager();
+  const modeDiff = useStateDiff(mode);
   const style =
     mode === "MAXIMIZED"
       ? {
           left: 0,
           top: 0,
           ...manager.screenSize,
+          transition: "all ease-in-out .23s",
         }
       : {
           left: x0,
@@ -34,30 +47,40 @@ export default function DraggableWindow(props: DraggableWindowProps) {
         };
   return (
     <DraggableWindowWrapper
-      style={{ ...style, zIndex: z * 1000 }}
+      style={{
+        ...style,
+        zIndex: z * 1000,
+        transition: modeDiff ? "all ease-in-out .23s" : undefined,
+      }}
       onMouseDownCapture={() => controller.focus()}
     >
       <TitleBar
-        title={props.title ?? "untitled"}
+        title={title ?? "untitled"}
         actions={
           <>
-            <PureButton
-              onClick={() =>
-                controller.update((s) => ({
-                  ...s,
-                  mode: mode === "MAXIMIZED" ? "NORMAL" : "MAXIMIZED",
-                }))
-              }
-            >
-              {mode === "MAXIMIZED" ? "restore" : "maximize"}
-            </PureButton>
-            <PureButton onClick={() => controller.close()}>close</PureButton>
+            {mode !== "MAXIMIZED" &&
+              cloneElement(maximizeController, {
+                onClick: () =>
+                  controller.update((s) => ({
+                    ...s,
+                    mode: "MAXIMIZED",
+                  })),
+              })}
+            {mode !== "NORMAL" &&
+              cloneElement(restoreController, {
+                onClick: () =>
+                  controller.update((s) => ({
+                    ...s,
+                    mode: "NORMAL",
+                  })),
+              })}
+            {cloneElement(closeController, { onClick: controller.close })}
           </>
         }
       />
       <VerticalDivider />
-      <div style={{ flex: "1 1 auto" }}>{props.children}</div>
-      <BottomRightResizeHandler thickness={8} />
+      <div style={{ flex: "1 1 auto" }}>{children}</div>
+      <BottomRightResizeHandler thickness={16} />
     </DraggableWindowWrapper>
   );
 }
@@ -86,7 +109,16 @@ function TitleBar(props: { title: string; actions?: ReactNode }) {
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       style={{ display: "flex", userSelect: "none" }}
+      onContextMenu={(e) => {
+        e.preventDefault();
+      }}
       onMouseDown={startDrag}
+      onDoubleClick={() =>
+        controller.update((s) => ({
+          ...s,
+          mode: s.mode === "MAXIMIZED" ? "NORMAL" : "MAXIMIZED",
+        }))
+      }
     >
       <H5 style={{ flex: "1 1 auto" }}>{title}</H5>
       {actions}
@@ -96,6 +128,7 @@ function TitleBar(props: { title: string; actions?: ReactNode }) {
 
 function BottomRightResizeHandler(props: { thickness: number }) {
   const { thickness } = props;
+  const offset = thickness / 2;
   const controller = useWindowController();
   const startDrag = useDraggingEffect((e) => {
     controller.resize({ dx1: e.movementX, dy1: e.movementY });
@@ -110,6 +143,7 @@ function BottomRightResizeHandler(props: { thickness: number }) {
         left: "100%",
         width: thickness,
         height: thickness,
+        transform: `translate(-${offset}px, -${offset}px)`,
         cursor: "se-resize",
       }}
     />

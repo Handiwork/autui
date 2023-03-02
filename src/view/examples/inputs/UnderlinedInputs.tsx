@@ -50,7 +50,7 @@ export default function UnderlinedInputs() {
       </label>
       <label>
         <span>checked</span>
-        <UnderlinedInput type="checkbox" checked />
+        <UnderlinedInput type="checkbox" defaultChecked />
       </label>
       <label>
         <span>unchecked</span>

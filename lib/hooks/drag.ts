@@ -6,23 +6,32 @@ import {
   useState,
 } from "react";
 
-type Handler = (e: { movementX: number; movementY: number }) => void;
+type EffectCallback = (e: { movementX: number; movementY: number }) => void;
 
-export function useDraggingEffect(callback: Handler, deps?: any[]) {
+function useUserSelectSuppression(suppressed: boolean) {
+  const originUserSelect = useRef("");
+  useEffect(() => {
+    if (suppressed) {
+      originUserSelect.current = document.body.style.userSelect;
+      document.body.style.userSelect = "none";
+    } else {
+      document.body.style.userSelect = originUserSelect.current;
+    }
+  }, [suppressed]);
+}
+
+export function useDraggingEffect(effect: EffectCallback, deps?: any[]) {
   const [dragging, setDragging] = useState(false);
   const lastPos = useRef({ x: 0, y: 0 });
-  const originUserSelect = useRef("");
+  useUserSelectSuppression(dragging);
   const trigger = useCallback<MouseEventHandler<HTMLElement>>((e) => {
     setDragging(true);
     lastPos.current = { x: e.clientX, y: e.clientY };
-    originUserSelect.current = document.body.style.userSelect;
-    document.body.style.userSelect = "none";
   }, []);
-  const handle = useCallback(callback, deps ?? []);
+  const handle = useCallback(effect, deps ?? []);
   useEffect(() => {
     const stopDragging = () => {
       setDragging(false);
-      document.body.style.userSelect = originUserSelect.current;
     };
     document.addEventListener("mouseup", stopDragging);
     return () => {

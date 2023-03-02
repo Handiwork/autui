@@ -1,4 +1,4 @@
-import loadable from "@loadable/component";
+import { lazy } from "react";
 import { FaCog } from "react-icons/fa";
 import { IRoute } from "../data/IRoute";
 
@@ -6,17 +6,17 @@ const routes: Array<IRoute> = [
   {
     path: "docs",
     title: "Docs",
-    component: loadable(() => import("./docs")),
+    component: lazy(() => import("./docs")),
   },
   {
     path: "components",
     title: "Components",
-    component: loadable(() => import("./examples")),
+    component: lazy(() => import("./examples")),
   },
   {
     path: "configuration",
     title: <FaCog />,
-    component: loadable(() => import("./Configuartion")),
+    component: lazy(() => import("./Configuartion")),
   },
 ];
 export default routes;

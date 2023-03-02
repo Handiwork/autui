@@ -50,7 +50,7 @@ export default function OutlinedInputs() {
       </label>
       <label>
         <span>checked</span>
-        <OutlinedInput type="checkbox" checked />
+        <OutlinedInput type="checkbox" defaultChecked />
       </label>
       <label>
         <span>unchecked</span>

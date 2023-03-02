@@ -3,6 +3,7 @@ import {
   useDebugValue,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -29,7 +30,6 @@ export function useTransitionStyle<T extends CSSProperties>(
   const transition = useMemo(() => {
     return keys.map((it) => `${it} ${delay}s ${duration}s`).join(", ");
   }, keys);
-  const [computed, setComputed] = useState(selected);
   useEffect(() => {
     if (last !== target) {
       setLast(target);
@@ -50,4 +50,13 @@ export function useTransitionStyle<T extends CSSProperties>(
 function select<T>(value: boolean, trueV: T, falseV: T) {
   if (value) return trueV;
   return falseV;
+}
+
+export function useStateDiff<T>(value: T, init?: T) {
+  const ref = useRef(init ?? value);
+  const diff = ref.current !== value;
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return diff;
 }

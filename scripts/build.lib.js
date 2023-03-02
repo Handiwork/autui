@@ -42,6 +42,7 @@ async function buildLib() {
             "styled-components": "styled",
             polished: "polished",
           },
+          exports: "named",
         },
       },
     },

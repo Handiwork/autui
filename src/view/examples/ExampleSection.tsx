@@ -1,6 +1,6 @@
 import CodeViewer from "@doc/components/CodeViewer";
 import MarkdownViewer from "@doc/components/MarkdownViewer";
-import loadable from "@loadable/component";
+import { useOneShotData } from "@doc/hooks/state";
 import {
   Card,
   ColorFlatButton,
@@ -71,18 +71,17 @@ export interface LazyExampleSectionProps {
 }
 
 export function LazyExampleSection(props: LazyExampleSectionProps) {
-  const Datum = loadable.lib(() =>
+  const states = useOneShotData(() =>
     Promise.all([props.component(), props.code(), props.description()])
   );
+
+  if (!states) return null;
+  const [component, code, description] = states;
   return (
-    <Datum>
-      {([component, code, description]) => (
-        <ExampleSection
-          component={component}
-          code={code}
-          description={description}
-        />
-      )}
-    </Datum>
+    <ExampleSection
+      component={component}
+      code={code}
+      description={description}
+    />
   );
 }
